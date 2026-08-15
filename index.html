@@ -2,14 +2,15 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Davi Z</title>
 
 <style>
-
 *{
     box-sizing:border-box;
+    user-select:none;
+    -webkit-user-select:none;
 }
 
 html,body{
@@ -18,19 +19,18 @@ html,body{
     height:100%;
     overflow:hidden;
     font-family:Arial,sans-serif;
+    background:#06152d;
 }
 
-body{
-    background:#0b63b6;
+button{
+    font-family:Arial,sans-serif;
+    cursor:pointer;
 }
 
 .screen{
     width:100%;
     height:100%;
     display:none;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
 }
 
 .screen.active{
@@ -38,22 +38,27 @@ body{
 }
 
 
-/* =========================
-MENU
-========================= */
+/* ==================================================
+   MENU
+================================================== */
 
 #menu{
     position:relative;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
     overflow:hidden;
-    background:linear-gradient(
-        #168fd4,
-        #8edfff
-    );
+
+    background:
+        linear-gradient(
+            #1495d8,
+            #8fe3ff
+        );
 }
 
 .cloud{
     position:absolute;
-    width:180px;
+    width:190px;
     height:55px;
     background:white;
     border-radius:50px;
@@ -69,39 +74,42 @@ MENU
 }
 
 .cloud:before{
-    width:70px;
-    height:70px;
+    width:75px;
+    height:75px;
     left:25px;
-    bottom:10px;
+    bottom:8px;
 }
 
 .cloud:after{
     width:90px;
     height:90px;
     right:20px;
-    bottom:5px;
+    bottom:4px;
 }
 
 .cloud1{
     top:15%;
-    left:-40px;
+    left:-50px;
 }
 
 .cloud2{
     bottom:15%;
-    right:-40px;
+    right:-50px;
 }
 
-h1{
+#menu h1{
     position:relative;
-    z-index:2;
+    z-index:5;
+
+    margin:0 0 35px;
 
     color:white;
     font-size:70px;
-    margin:0 0 40px 0;
+    font-weight:1000;
 
     text-shadow:
-        4px 5px 0 #07528f;
+        4px 5px 0 #07548f,
+        0 8px 20px rgba(0,0,0,.3);
 }
 
 .menuButton{
@@ -109,40 +117,51 @@ h1{
     z-index:10;
 
     width:280px;
-    padding:18px;
+    padding:17px;
 
-    margin:8px;
+    margin:7px;
 
     border:3px solid white;
-    border-radius:15px;
+    border-radius:14px;
 
     background:#0874c9;
     color:white;
 
-    font-size:23px;
+    font-size:22px;
     font-weight:bold;
 
-    cursor:pointer;
+    box-shadow:
+        0 5px 0 #06477d,
+        0 8px 15px rgba(0,0,0,.25);
+}
+
+.menuButton:active{
+    transform:translateY(4px);
+    box-shadow:0 1px 0 #06477d;
 }
 
 
-/* =========================
-SELEÇÃO
-========================= */
+/* ==================================================
+   SELEÇÃO
+================================================== */
 
 #selection{
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+
     background:
         linear-gradient(
             #061a42,
-            #063d78
+            #07518a
         );
 
     color:white;
 }
 
 #selection h2{
-    font-size:40px;
-    margin-bottom:30px;
+    margin:0 0 25px;
+    font-size:38px;
 }
 
 .characters{
@@ -152,22 +171,31 @@ SELEÇÃO
 
 .character{
     width:190px;
-    padding:20px;
+    padding:18px;
 
-    border:2px solid #55cfff;
-    border-radius:15px;
+    text-align:center;
 
     background:#092653;
 
-    text-align:center;
+    border:2px solid #54cfff;
+    border-radius:15px;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.3);
 }
 
 .character h3{
     font-size:25px;
+    margin:5px 0 15px;
+}
+
+.character p{
+    margin:7px;
 }
 
 .character button{
-    margin-top:15px;
+    margin-top:10px;
+
     padding:10px 20px;
 
     border:0;
@@ -177,48 +205,518 @@ SELEÇÃO
     color:white;
 
     font-weight:bold;
-
-    cursor:pointer;
 }
 
 
-/* =========================
-JOGO
-========================= */
+/* ==================================================
+   JOGO
+================================================== */
 
 #game{
-    background:#62c5ed;
-    color:white;
     position:relative;
+
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:#70c9ed;
 }
 
-#game h2{
-    font-size:50px;
+
+/*
+A área interna possui proporção horizontal.
+*/
+
+#gameWorld{
+    position:relative;
+
+    width:min(100vw,177.777vh);
+    height:min(56.25vw,100vh);
+
+    aspect-ratio:16/9;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            #42b7ee 0%,
+            #bcecff 67%,
+            #4c9d43 68%,
+            #28672e 100%
+        );
 }
 
-.backButton{
-    padding:15px 30px;
 
-    background:#d32f2f;
+/* ==================================================
+   CENÁRIO
+================================================== */
+
+.cloudGame{
+    position:absolute;
+
+    width:170px;
+    height:45px;
+
+    background:rgba(255,255,255,.7);
+
+    border-radius:50px;
+}
+
+.cloudGame:nth-child(1){
+    top:13%;
+    left:12%;
+}
+
+.cloudGame:nth-child(2){
+    top:20%;
+    right:15%;
+}
+
+.cloudGame:nth-child(3){
+    top:9%;
+    left:48%;
+}
+
+
+/* ==================================================
+   HUD
+================================================== */
+
+#hud{
+    position:absolute;
+
+    top:3%;
+    left:2%;
+
+    width:27%;
+
     color:white;
 
-    border:0;
+    z-index:20;
+
+    text-shadow:
+        2px 2px 3px black;
+}
+
+#playerName{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:4px;
+}
+
+.barContainer{
+    width:100%;
+    height:15px;
+
+    margin-bottom:5px;
+
+    border:2px solid white;
+    border-radius:8px;
+
+    background:#111;
+
+    overflow:hidden;
+}
+
+#hpBar{
+    width:100%;
+    height:100%;
+    background:#e52222;
+}
+
+#energyBar{
+    width:100%;
+    height:100%;
+    background:#1689ff;
+}
+
+#stats{
+    font-size:14px;
+    font-weight:bold;
+    line-height:1.5;
+}
+
+
+/* ==================================================
+   INIMIGO
+================================================== */
+
+#enemyHud{
+    position:absolute;
+
+    top:3%;
+    right:2%;
+
+    width:27%;
+
+    color:white;
+
+    text-align:right;
+
+    z-index:20;
+
+    text-shadow:
+        2px 2px 3px black;
+}
+
+#enemyName{
+    font-size:20px;
+    font-weight:bold;
+}
+
+#enemyHpBar{
+    width:100%;
+    height:15px;
+
+    border:2px solid white;
+    border-radius:8px;
+
+    background:#111;
+
+    overflow:hidden;
+}
+
+#enemyHpFill{
+    width:100%;
+    height:100%;
+
+    background:#e52222;
+}
+
+#enemyStats{
+    font-size:14px;
+    font-weight:bold;
+}
+
+
+/* ==================================================
+   JOGADORES
+================================================== */
+
+.fighter{
+    position:absolute;
+
+    width:45px;
+    height:85px;
+
+    border-radius:25px 25px 8px 8px;
+
+    z-index:10;
+
+    transition:none;
+}
+
+.fighter:before{
+    content:"";
+
+    position:absolute;
+
+    width:48px;
+    height:48px;
+
+    left:-1px;
+    top:-35px;
+
+    border-radius:50%;
+
+    background:inherit;
+}
+
+#player{
+    background:#f08b20;
+
+    box-shadow:
+        0 0 15px rgba(255,170,30,.6);
+}
+
+#enemy{
+    background:#c32b35;
+
+    box-shadow:
+        0 0 15px rgba(255,30,30,.5);
+}
+
+
+/* ==================================================
+   ATAQUE VISUAL
+================================================== */
+
+.attackEffect{
+    position:absolute;
+
+    width:70px;
+    height:12px;
+
     border-radius:10px;
 
-    font-size:18px;
+    background:#ffe66b;
 
-    cursor:pointer;
+    box-shadow:
+        0 0 20px #fff200;
+
+    z-index:9;
 }
 
+.kiEffect{
+    position:absolute;
+
+    height:14px;
+
+    width:170px;
+
+    border-radius:20px;
+
+    background:#3deaff;
+
+    box-shadow:
+        0 0 25px #00d9ff,
+        0 0 45px #ffffff;
+
+    z-index:9;
+}
+
+
+/* ==================================================
+   CONTROLES
+================================================== */
+
+#controls{
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:30;
+}
+
+
+/* ANALÓGICO */
+
+#joystick{
+    position:absolute;
+
+    left:4%;
+    bottom:7%;
+
+    width:115px;
+    height:115px;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.25);
+
+    border:3px solid rgba(255,255,255,.7);
+
+    pointer-events:auto;
+}
+
+#stick{
+    position:absolute;
+
+    width:48px;
+    height:48px;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.75);
+
+    border:2px solid white;
+}
+
+
+/* BOTÕES */
+
+.controlButton{
+    position:absolute;
+
+    width:72px;
+    height:72px;
+
+    border-radius:50%;
+
+    border:3px solid white;
+
+    color:white;
+
+    font-weight:bold;
+
+    pointer-events:auto;
+
+    box-shadow:
+        0 5px 10px rgba(0,0,0,.3);
+}
+
+#attackButton{
+    right:5%;
+    bottom:10%;
+
+    background:#d83b18;
+}
+
+#dashButton{
+    right:18%;
+    bottom:5%;
+
+    background:#4949b8;
+}
+
+#kiButton{
+    right:18%;
+    bottom:22%;
+
+    background:#007fdb;
+}
+
+#jumpButton{
+    left:17%;
+    bottom:5%;
+
+    background:#379b35;
+}
+
+
+/* ==================================================
+   SKILLS
+================================================== */
+
+#skills{
+    position:absolute;
+
+    right:5%;
+    bottom:37%;
+
+    display:flex;
+    gap:6px;
+
+    pointer-events:auto;
+}
+
+.skill{
+    padding:7px 10px;
+
+    border:2px solid white;
+    border-radius:7px;
+
+    background:rgba(0,0,0,.65);
+
+    color:white;
+
+    font-size:11px;
+    font-weight:bold;
+}
+
+
+/* ==================================================
+   MENSAGEM
+================================================== */
+
+#message{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    color:white;
+
+    font-size:55px;
+    font-weight:1000;
+
+    text-shadow:
+        4px 4px 8px black;
+
+    z-index:100;
+
+    display:none;
+
+    text-align:center;
+}
+
+
+/* ==================================================
+   RESPONSIVO
+================================================== */
+
+@media(max-width:700px){
+
+    #selection h2{
+        font-size:25px;
+    }
+
+    .characters{
+        gap:6px;
+    }
+
+    .character{
+        width:30vw;
+        padding:10px;
+    }
+
+    .character h3{
+        font-size:17px;
+    }
+
+    .character p{
+        font-size:11px;
+    }
+
+    .character button{
+        font-size:11px;
+        padding:8px;
+    }
+
+    #joystick{
+        width:85px;
+        height:85px;
+    }
+
+    #stick{
+        width:36px;
+        height:36px;
+    }
+
+    .controlButton{
+        width:55px;
+        height:55px;
+        font-size:10px;
+    }
+
+}
+
+
+/* ==================================================
+   VERTICAL
+================================================== */
+
+@media(orientation:portrait){
+
+    #gameWorld{
+        width:100vw;
+        height:56.25vw;
+
+        transform:scale(
+            min(1, calc(100vh / 56.25vw))
+        );
+    }
+
+}
 </style>
 </head>
 
 <body>
 
 
-<!-- =========================
-MENU
-========================= -->
+<!-- ==================================================
+     MENU
+================================================== -->
 
 <div id="menu" class="screen active">
 
@@ -254,9 +752,9 @@ MENU
 </div>
 
 
-<!-- =========================
-SELEÇÃO
-========================= -->
+<!-- ==================================================
+     SELEÇÃO
+================================================== -->
 
 <div id="selection" class="screen">
 
@@ -270,13 +768,10 @@ SELEÇÃO
 
             <h3>Goku</h3>
 
-            <p>
-                HP: 90
-            </p>
-
-            <p>
-                ATK: 1
-            </p>
+            <p>HP: 90</p>
+            <p>ATK: 1</p>
+            <p>ENERGIA: 100</p>
+            <p>DEFESA: 100%</p>
 
             <button
                 onclick="startGame('Goku')">
@@ -292,13 +787,10 @@ SELEÇÃO
 
             <h3>Piccolo</h3>
 
-            <p>
-                HP: 110
-            </p>
-
-            <p>
-                ATK: 1
-            </p>
+            <p>HP: 110</p>
+            <p>ATK: 1</p>
+            <p>ENERGIA: 100</p>
+            <p>DEFESA: 100%</p>
 
             <button
                 onclick="startGame('Piccolo')">
@@ -314,13 +806,10 @@ SELEÇÃO
 
             <h3>Vegeta</h3>
 
-            <p>
-                HP: 85
-            </p>
-
-            <p>
-                ATK: 1
-            </p>
+            <p>HP: 85</p>
+            <p>ATK: 1</p>
+            <p>ENERGIA: 100</p>
+            <p>DEFESA: 100%</p>
 
             <button
                 onclick="startGame('Vegeta')">
@@ -336,114 +825,578 @@ SELEÇÃO
 </div>
 
 
-<!-- =========================
-JOGO
-========================= -->
+<!-- ==================================================
+     JOGO
+================================================== -->
 
 <div id="game" class="screen">
 
-    <h2 id="gameTitle">
-        DAVI Z
-    </h2>
+    <div id="gameWorld">
 
-    <p id="gameInfo">
-        Jogo iniciado!
-    </p>
+        <!-- CENÁRIO -->
 
-    <button
-        class="backButton"
-        onclick="goMenu()">
+        <div class="cloudGame"></div>
+        <div class="cloudGame"></div>
+        <div class="cloudGame"></div>
 
-        VOLTAR AO MENU
 
-    </button>
+        <!-- HUD JOGADOR -->
+
+        <div id="hud">
+
+            <div id="playerName">
+                Goku
+            </div>
+
+            <div class="barContainer">
+
+                <div id="hpBar"></div>
+
+            </div>
+
+            <div class="barContainer">
+
+                <div id="energyBar"></div>
+
+            </div>
+
+            <div id="stats">
+
+                HP: <span id="hpText">90 / 90</span>
+                <br>
+
+                ENERGIA:
+                <span id="energyText">100 / 100</span>
+
+                <br>
+
+                ATK:
+                <span id="attackText">1</span>
+
+                <br>
+
+                DEFESA:
+                <span id="defenseText">100%</span>
+
+                <br>
+
+                💰 MOEDAS:
+                <span id="coinsText">∞</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- HUD INIMIGO -->
+
+        <div id="enemyHud">
+
+            <div id="enemyName">
+                INIMIGO
+            </div>
+
+            <div id="enemyHpBar">
+
+                <div id="enemyHpFill"></div>
+
+            </div>
+
+            <div id="enemyStats">
+
+                HP:
+                <span id="enemyHpText">
+                    20 / 20
+                </span>
+
+                <br>
+
+                ATK:
+                <span id="enemyAttackText">
+                    1
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- PERSONAGENS -->
+
+        <div
+            id="player"
+            class="fighter">
+        </div>
+
+        <div
+            id="enemy"
+            class="fighter">
+        </div>
+
+
+        <!-- CONTROLES -->
+
+        <div id="controls">
+
+            <div id="joystick">
+
+                <div id="stick"></div>
+
+            </div>
+
+
+            <button
+                id="jumpButton"
+                class="controlButton">
+
+                PULO
+
+            </button>
+
+
+            <button
+                id="attackButton"
+                class="controlButton">
+
+                SOCO
+
+            </button>
+
+
+            <button
+                id="dashButton"
+                class="controlButton">
+
+                DASH
+
+            </button>
+
+
+            <button
+                id="kiButton"
+                class="controlButton">
+
+                KI
+
+            </button>
+
+
+            <div id="skills">
+
+                <button class="skill">
+                    SKILL 1
+                </button>
+
+                <button class="skill">
+                    SKILL 2
+                </button>
+
+                <button class="skill">
+                    SKILL 3
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div id="message"></div>
+
+    </div>
 
 </div>
 
 
 <script>
 
-/*
-========================================
-SISTEMA DE NAVEGAÇÃO
-========================================
-*/
+/* ==================================================
+   CONFIGURAÇÃO
+================================================== */
 
-let currentMode = "";
+const characters = {
+
+    Goku:{
+        hp:90,
+        attack:1,
+        color:"#f08b20"
+    },
+
+    Piccolo:{
+        hp:110,
+        attack:1,
+        color:"#2db84d"
+    },
+
+    Vegeta:{
+        hp:85,
+        attack:1,
+        color:"#2867d5"
+    }
+
+};
 
 
-/*
-ABRIR SELEÇÃO
-*/
+let currentMode = "treino";
+let currentCharacter = "Goku";
+
+let player = null;
+let enemy = null;
+
+let gameRunning = false;
+
+
+/* ==================================================
+   ELEMENTOS
+================================================== */
+
+const menu =
+    document.getElementById("menu");
+
+const selection =
+    document.getElementById("selection");
+
+const game =
+    document.getElementById("game");
+
+const gameWorld =
+    document.getElementById("gameWorld");
+
+const playerElement =
+    document.getElementById("player");
+
+const enemyElement =
+    document.getElementById("enemy");
+
+
+/* ==================================================
+   ABRIR SELEÇÃO
+================================================== */
 
 function openSelection(mode){
 
     currentMode = mode;
 
-    document
-        .getElementById("menu")
-        .classList
-        .remove("active");
+    menu.classList.remove("active");
 
-    document
-        .getElementById("selection")
-        .classList
-        .add("active");
+    selection.classList.add("active");
 
 }
 
 
-/*
-INICIAR JOGO
-*/
+/* ==================================================
+   INICIAR JOGO
+================================================== */
 
 function startGame(character){
 
-    document
-        .getElementById("selection")
-        .classList
-        .remove("active");
+    currentCharacter = character;
 
-    document
-        .getElementById("game")
-        .classList
-        .add("active");
+    const data =
+        characters[character];
 
-    document
-        .getElementById("gameTitle")
-        .textContent =
-        character;
+    player = {
 
-    document
-        .getElementById("gameInfo")
-        .textContent =
-        "Modo: " +
-        currentMode +
-        " | Lutador: " +
-        character;
+        name:character,
+
+        maxHp:data.hp,
+        hp:data.hp,
+
+        attack:data.attack,
+
+        maxEnergy:100,
+        energy:100,
+
+        baseDefense:100,
+        defense:100,
+
+        x:300,
+        y:0,
+
+        velocityY:0,
+
+        grounded:true,
+
+        speed:5,
+
+        facing:1,
+
+        attacking:false,
+
+        attackTimer:0,
+
+        dashTimer:0,
+
+        invulnerable:false
+
+    };
+
+
+    enemy = {
+
+        maxHp:20,
+        hp:20,
+
+        attack:1,
+
+        x:900,
+        y:0,
+
+        velocityY:0,
+
+        grounded:true,
+
+        speed:1.2,
+
+        attackTimer:0,
+
+        attacking:false
+
+    };
+
+
+    selection.classList.remove("active");
+
+    game.classList.add("active");
+
+    updatePlayerColor();
+
+    updateHUD();
+
+    positionCharacters();
+
+    gameRunning=true;
+
+    requestAnimationFrame(gameLoop);
 
 }
 
 
-/*
-VOLTAR AO MENU
-*/
+/* ==================================================
+   COR DO PERSONAGEM
+================================================== */
 
-function goMenu(){
+function updatePlayerColor(){
 
-    document
-        .getElementById("game")
-        .classList
-        .remove("active");
-
-    document
-        .getElementById("menu")
-        .classList
-        .add("active");
+    playerElement.style.background =
+        characters[currentCharacter].color;
 
 }
 
-</script>
 
-</body>
-</html>
+/* ==================================================
+   DEFESA
+================================================== */
+
+function updateDefense(){
+
+    const percentage =
+        player.energy /
+        player.maxEnergy;
+
+
+    if(percentage < 0.30){
+
+        player.defense=0;
+
+    }
+
+    else if(percentage < 0.50){
+
+        player.defense=60;
+
+    }
+
+    else if(percentage < 0.70){
+
+        player.defense=80;
+
+    }
+
+    else{
+
+        player.defense=100;
+
+    }
+
+}
+
+
+/* ==================================================
+   GASTAR ENERGIA
+================================================== */
+
+function spendEnergy(amount){
+
+    if(player.energy < amount){
+
+        return false;
+
+    }
+
+    player.energy-=amount;
+
+    updateDefense();
+
+    return true;
+
+}
+
+
+/* ==================================================
+   ATAQUE BÁSICO
+================================================== */
+
+function basicAttack(){
+
+    if(!gameRunning)return;
+
+    if(player.attackTimer>0)return;
+
+    if(!spendEnergy(1))return;
+
+
+    player.attacking=true;
+
+    player.attackTimer=18;
+
+
+    createAttackEffect();
+
+
+    /*
+    Ataque causa dano somente
+    quando o inimigo estiver próximo.
+    */
+
+    const distance =
+        Math.abs(
+            player.x-enemy.x
+        );
+
+
+    if(distance<130){
+
+        damageEnemy(
+            player.attack
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   ATAQUE DE KI
+================================================== */
+
+function kiAttack(){
+
+    if(!gameRunning)return;
+
+    if(player.attackTimer>0)return;
+
+    if(!spendEnergy(2))return;
+
+
+    player.attacking=true;
+
+    player.attackTimer=25;
+
+
+    createKiEffect();
+
+
+    const distance =
+        Math.abs(
+            player.x-enemy.x
+        );
+
+
+    /*
+    O Ki possui alcance maior.
+    */
+
+    if(distance<350){
+
+        damageEnemy(
+            player.attack
+        );
+
+    }
+
+}
+
+
+/* ==================================================
+   DASH
+================================================== */
+
+function dash(){
+
+    if(!gameRunning)return;
+
+    if(player.attackTimer>0)return;
+
+    if(!spendEnergy(2))return;
+
+
+    player.invulnerable=true;
+
+    player.dashTimer=12;
+
+}
+
+
+/* ==================================================
+   PULO
+================================================== */
+
+function jump(){
+
+    if(!gameRunning)return;
+
+    if(!player.grounded)return;
+
+    player.grounded=false;
+
+    player.velocityY=-13;
+
+}
+
+
+/* ==================================================
+   DANO AO INIMIGO
+================================================== */
+
+function damageEnemy(damage){
+
+    enemy.hp-=damage;
+
+    if(enemy.hp<0){
+
+        enemy.hp=0;
+
+    }
+
+    updateEnemyHUD();
+
+
+    if(enemy.hp<=0){
+
+        enemyDefeated();
+
+    }
+
+}
+
+
+/* ==================================================
+   INIMIGO DERROTADO
+================================================== */
+
+function enemyDefeated(){
+
+    gameRunning=false;
+
+    showMessage(
+        "INIMIGO DER
