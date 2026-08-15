@@ -2,108 +2,84 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Davi Z</title>
 
 <style>
+
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
-    user-select:none;
-    -webkit-user-select:none;
-    touch-action:none;
 }
 
 html,body{
+    margin:0;
     width:100%;
     height:100%;
     overflow:hidden;
-    background:#07152e;
-    font-family:Arial,Helvetica,sans-serif;
+    font-family:Arial,sans-serif;
 }
 
-button{
-    font-family:inherit;
-    border:0;
-    cursor:pointer;
+body{
+    background:#0b63b6;
 }
-
-/* =====================================================
-   SISTEMA DE TELAS
-===================================================== */
 
 .screen{
-    position:fixed;
-    inset:0;
     width:100%;
     height:100%;
     display:none;
-    overflow:hidden;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
 }
 
 .screen.active{
     display:flex;
 }
 
-/* =====================================================
-   MENU
-===================================================== */
 
-#menuScreen{
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    background:
-        linear-gradient(
-            to bottom,
-            #1598ee 0%,
-            #5cc6f7 62%,
-            #dff8ff 100%
-        );
-}
+/* =========================
+MENU
+========================= */
 
-.gameTitle{
+#menu{
     position:relative;
-    z-index:5;
-    color:white;
-    font-size:clamp(55px,11vw,110px);
-    font-weight:1000;
-    letter-spacing:4px;
-    text-shadow:
-        0 6px 0 #1265a3,
-        0 10px 20px rgba(0,0,0,.35);
-    margin-bottom:35px;
+    overflow:hidden;
+    background:linear-gradient(
+        #168fd4,
+        #8edfff
+    );
 }
 
-.menuCloud{
+.cloud{
     position:absolute;
-    width:190px;
+    width:180px;
     height:55px;
-    background:rgba(255,255,255,.85);
+    background:white;
     border-radius:50px;
+    opacity:.8;
 }
 
-.menuCloud:before,
-.menuCloud:after{
+.cloud:before,
+.cloud:after{
     content:"";
     position:absolute;
-    background:inherit;
+    background:white;
     border-radius:50%;
 }
 
-.menuCloud:before{
-    width:80px;
-    height:80px;
+.cloud:before{
+    width:70px;
+    height:70px;
     left:25px;
-    bottom:8px;
+    bottom:10px;
 }
 
-.menuCloud:after{
-    width:100px;
-    height:100px;
+.cloud:after{
+    width:90px;
+    height:90px;
     right:20px;
-    bottom:3px;
+    bottom:5px;
 }
 
 .cloud1{
@@ -112,1014 +88,362 @@ button{
 }
 
 .cloud2{
-    top:68%;
-    right:-50px;
-    transform:scale(.75);
+    bottom:15%;
+    right:-40px;
 }
 
-.menuButtons{
+h1{
     position:relative;
-    z-index:5;
-    width:min(400px,75vw);
-    display:flex;
-    flex-direction:column;
-    gap:16px;
+    z-index:2;
+
+    color:white;
+    font-size:70px;
+    margin:0 0 40px 0;
+
+    text-shadow:
+        4px 5px 0 #07528f;
 }
 
 .menuButton{
-    padding:17px;
-    border-radius:16px;
-    border:3px solid white;
-    background:linear-gradient(#168fe9,#0755aa);
-    color:white;
-    font-size:24px;
-    font-weight:900;
-    box-shadow:
-        0 6px 0 #063c79,
-        0 10px 20px rgba(0,0,0,.25);
-}
-
-.menuButton:active{
-    transform:translateY(5px);
-    box-shadow:0 1px 0 #063c79;
-}
-
-/* =====================================================
-   SELEÇÃO
-===================================================== */
-
-#selectScreen{
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    background:
-        radial-gradient(circle at 50% 20%,#1469a9,#06152f 75%);
-}
-
-.selectTitle{
-    color:white;
-    font-size:clamp(28px,5vw,55px);
-    margin-bottom:25px;
-    text-shadow:0 4px 10px black;
-}
-
-.characterList{
-    display:flex;
-    justify-content:center;
-    align-items:stretch;
-    gap:18px;
-    width:min(1000px,95vw);
-}
-
-.characterCard{
-    flex:1;
-    max-width:280px;
-    min-width:0;
-    padding:15px;
-    text-align:center;
-    color:white;
-    background:rgba(0,0,0,.45);
-    border:2px solid #53caff;
-    border-radius:18px;
-    box-shadow:0 8px 25px rgba(0,0,0,.3);
-}
-
-.characterCard h2{
-    margin-bottom:8px;
-    font-size:26px;
-}
-
-.characterVisual{
-    height:170px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.cardBody{
     position:relative;
-    width:55px;
-    height:105px;
-    border-radius:28px 28px 12px 12px;
-}
+    z-index:10;
 
-.cardBody:before{
-    content:"";
-    position:absolute;
-    width:58px;
-    height:58px;
-    border-radius:50%;
-    left:-1px;
-    top:-37px;
-    background:inherit;
-}
+    width:280px;
+    padding:18px;
 
-.goku{
-    background:#ef831d;
-    box-shadow:0 0 25px #ffb13b;
-}
+    margin:8px;
 
-.piccolo{
-    background:#2ab84e;
-    box-shadow:0 0 25px #5aff7b;
-}
+    border:3px solid white;
+    border-radius:15px;
 
-.vegeta{
-    background:#2766d8;
-    box-shadow:0 0 25px #5890ff;
-}
+    background:#0874c9;
+    color:white;
 
-.characterStats{
-    line-height:1.7;
-    color:#d9f4ff;
+    font-size:23px;
     font-weight:bold;
+
+    cursor:pointer;
 }
 
-.chooseButton{
-    width:100%;
-    margin-top:10px;
-    padding:11px;
-    border-radius:10px;
-    background:#13aeea;
+
+/* =========================
+SELEÇÃO
+========================= */
+
+#selection{
+    background:
+        linear-gradient(
+            #061a42,
+            #063d78
+        );
+
     color:white;
-    font-weight:900;
-    font-size:16px;
 }
 
-/* =====================================================
-   JOGO
-===================================================== */
-
-#gameScreen{
-    background:#000;
-    align-items:center;
-    justify-content:center;
+#selection h2{
+    font-size:40px;
+    margin-bottom:30px;
 }
 
-/*
-   A área real do jogo sempre trabalha em 16:9.
-   Ela é escalada para caber na tela disponível.
-*/
+.characters{
+    display:flex;
+    gap:20px;
+}
 
-#gameViewport{
+.character{
+    width:190px;
+    padding:20px;
+
+    border:2px solid #55cfff;
+    border-radius:15px;
+
+    background:#092653;
+
+    text-align:center;
+}
+
+.character h3{
+    font-size:25px;
+}
+
+.character button{
+    margin-top:15px;
+    padding:10px 20px;
+
+    border:0;
+    border-radius:8px;
+
+    background:#0da9ed;
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+
+/* =========================
+JOGO
+========================= */
+
+#game{
+    background:#62c5ed;
+    color:white;
     position:relative;
-    width:100vw;
-    height:56.25vw;
-    max-height:100vh;
-    max-width:177.777vh;
-    aspect-ratio:16/9;
-    overflow:hidden;
-    background:#64c4f4;
 }
 
-#gameCanvas{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
+#game h2{
+    font-size:50px;
 }
 
-/* =====================================================
-   HUD
-===================================================== */
+.backButton{
+    padding:15px 30px;
 
-#hud{
-    position:absolute;
-    top:2%;
-    left:2%;
-    z-index:20;
-    width:27%;
-    min-width:180px;
+    background:#d32f2f;
     color:white;
-    pointer-events:none;
-    text-shadow:2px 2px 3px #000;
+
+    border:0;
+    border-radius:10px;
+
+    font-size:18px;
+
+    cursor:pointer;
 }
 
-.hudName{
-    font-size:clamp(15px,2vw,25px);
-    font-weight:1000;
-    margin-bottom:4px;
-}
-
-.barBox{
-    width:100%;
-    height:14px;
-    margin-bottom:4px;
-    border:2px solid white;
-    border-radius:7px;
-    background:#111;
-    overflow:hidden;
-}
-
-.bar{
-    width:100%;
-    height:100%;
-    transition:width .12s;
-}
-
-.hpBar{
-    background:linear-gradient(#ff6666,#c60000);
-}
-
-.energyBar{
-    background:linear-gradient(#71f2ff,#0064db);
-}
-
-.hudInfo{
-    font-size:clamp(11px,1.35vw,17px);
-    font-weight:900;
-    line-height:1.45;
-}
-
-.transformations{
-    display:flex;
-    flex-wrap:wrap;
-    gap:4px;
-    margin-top:5px;
-}
-
-.transformButton,
-.skillButton{
-    padding:5px 8px;
-    border:1px solid white;
-    border-radius:6px;
-    color:white;
-    background:rgba(0,0,0,.7);
-    font-size:clamp(9px,1vw,14px);
-    font-weight:900;
-}
-
-/* =====================================================
-   CONTROLES
-===================================================== */
-
-#joystick{
-    position:absolute;
-    left:3%;
-    bottom:7%;
-    width:14%;
-    aspect-ratio:1;
-    min-width:70px;
-    min-height:70px;
-    max-width:125px;
-    max-height:125px;
-    border-radius:50%;
-    border:3px solid rgba(255,255,255,.65);
-    background:rgba(0,0,0,.25);
-    z-index:30;
-}
-
-#stick{
-    position:absolute;
-    width:43%;
-    height:43%;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    border-radius:50%;
-    background:rgba(255,255,255,.65);
-    border:2px solid white;
-}
-
-#actions{
-    position:absolute;
-    right:3%;
-    bottom:5%;
-    width:30%;
-    height:34%;
-    z-index:30;
-}
-
-.actionButton{
-    position:absolute;
-    border:3px solid white;
-    border-radius:50%;
-    color:white;
-    font-size:clamp(9px,1.3vw,17px);
-    font-weight:1000;
-    box-shadow:0 5px 12px rgba(0,0,0,.35);
-}
-
-#attackButton{
-    width:31%;
-    aspect-ratio:1;
-    right:0;
-    bottom:15%;
-    background:radial-gradient(circle,#ffc21b,#c62b00);
-}
-
-#dashButton{
-    width:23%;
-    aspect-ratio:1;
-    right:34%;
-    bottom:0;
-    background:radial-gradient(circle,#a7a7ff,#3030a9);
-}
-
-#kiButton{
-    width:23%;
-    aspect-ratio:1;
-    right:34%;
-    top:0;
-    background:radial-gradient(circle,#8affff,#005dd7);
-}
-
-#jumpButton{
-    width:22%;
-    aspect-ratio:1;
-    left:0;
-    bottom:2%;
-    background:radial-gradient(circle,#c5ff76,#267d00);
-}
-
-#skills{
-    position:absolute;
-    right:3%;
-    bottom:41%;
-    display:flex;
-    gap:5px;
-    z-index:30;
-}
-
-#gameMessage{
-    position:absolute;
-    z-index:100;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    display:none;
-    color:white;
-    font-size:clamp(30px,6vw,80px);
-    font-weight:1000;
-    text-shadow:4px 4px 8px #000;
-    text-align:center;
-}
-
-/* =====================================================
-   ORIENTAÇÃO
-===================================================== */
-
-#rotateMessage{
-    position:absolute;
-    inset:0;
-    z-index:999;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    background:#07152e;
-    color:white;
-    text-align:center;
-    padding:30px;
-}
-
-#rotateMessage .phone{
-    font-size:70px;
-    margin-bottom:20px;
-}
-
-#rotateMessage h2{
-    font-size:30px;
-    margin-bottom:10px;
-}
-
-#rotateMessage p{
-    font-size:17px;
-    opacity:.8;
-}
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:700px){
-
-    .characterList{
-        gap:7px;
-    }
-
-    .characterCard{
-        padding:8px;
-    }
-
-    .characterVisual{
-        height:105px;
-    }
-
-    .characterCard h2{
-        font-size:18px;
-    }
-
-    .characterStats{
-        font-size:11px;
-    }
-
-    .chooseButton{
-        font-size:12px;
-        padding:8px;
-    }
-
-}
-
-/*
-   Se estiver em vertical, mostramos uma mensagem
-   somente dentro do jogo.
-*/
-
-@media(orientation:portrait){
-
-    #gameScreen #rotateMessage{
-        display:flex;
-    }
-
-}
 </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     MENU
-===================================================== -->
 
-<section id="menuScreen" class="screen active">
+<!-- =========================
+MENU
+========================= -->
 
-    <div class="menuCloud cloud1"></div>
-    <div class="menuCloud cloud2"></div>
+<div id="menu" class="screen active">
 
-    <div class="gameTitle">
-        DAVI Z
-    </div>
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
 
-    <div class="menuButtons">
+    <h1>DAVI Z</h1>
 
-        <button class="menuButton"
-                onclick="chooseMode('treino')">
-            TREINO
-        </button>
+    <button
+        class="menuButton"
+        onclick="openSelection('treino')">
 
-        <button class="menuButton"
-                onclick="chooseMode('infinito')">
-            INFINITO
-        </button>
+        TREINO
 
-        <button class="menuButton"
-                onclick="chooseMode('versus')">
-            VERSUS
-        </button>
+    </button>
 
-    </div>
+    <button
+        class="menuButton"
+        onclick="openSelection('infinito')">
 
-</section>
+        INFINITO
 
-<!-- =====================================================
-     SELEÇÃO
-===================================================== -->
+    </button>
 
-<section id="selectScreen" class="screen">
+    <button
+        class="menuButton"
+        onclick="openSelection('versus')">
 
-    <h1 class="selectTitle">
+        VERSUS
+
+    </button>
+
+</div>
+
+
+<!-- =========================
+SELEÇÃO
+========================= -->
+
+<div id="selection" class="screen">
+
+    <h2>
         ESCOLHA SEU LUTADOR
-    </h1>
+    </h2>
 
-    <div class="characterList">
+    <div class="characters">
 
-        <div class="characterCard">
+        <div class="character">
 
-            <div class="characterVisual">
-                <div class="cardBody goku"></div>
-            </div>
-
-            <h2>Goku</h2>
-
-            <div class="characterStats">
-                HP: 90<br>
-                ATK: 1<br>
-                ENERGIA: 100<br>
-                DEFESA: 100%
-            </div>
-
-            <button class="chooseButton"
-                    onclick="selectCharacter('Goku')">
-                ESCOLHER
-            </button>
-
-        </div>
-
-
-        <div class="characterCard">
-
-            <div class="characterVisual">
-                <div class="cardBody piccolo"></div>
-            </div>
-
-            <h2>Piccolo</h2>
-
-            <div class="characterStats">
-                HP: 110<br>
-                ATK: 1<br>
-                ENERGIA: 100<br>
-                DEFESA: 100%
-            </div>
-
-            <button class="chooseButton"
-                    onclick="selectCharacter('Piccolo')">
-                ESCOLHER
-            </button>
-
-        </div>
-
-
-        <div class="characterCard">
-
-            <div class="characterVisual">
-                <div class="cardBody vegeta"></div>
-            </div>
-
-            <h2>Vegeta</h2>
-
-            <div class="characterStats">
-                HP: 85<br>
-                ATK: 1<br>
-                ENERGIA: 100<br>
-                DEFESA: 100%
-            </div>
-
-            <button class="chooseButton"
-                    onclick="selectCharacter('Vegeta')">
-                ESCOLHER
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     JOGO
-===================================================== -->
-
-<section id="gameScreen" class="screen">
-
-    <div id="gameViewport">
-
-        <canvas id="gameCanvas"></canvas>
-
-        <!-- HUD -->
-
-        <div id="hud">
-
-            <div id="hudName"
-                 class="hudName">
-                Goku
-            </div>
-
-            <div class="barBox">
-                <div id="hpBar"
-                     class="bar hpBar">
-                </div>
-            </div>
-
-            <div id="hpText"
-                 class="hudInfo">
-                HP: 90 / 90
-            </div>
-
-            <div class="barBox">
-                <div id="energyBar"
-                     class="bar energyBar">
-                </div>
-            </div>
-
-            <div id="energyText"
-                 class="hudInfo">
-                ENERGIA: 100 / 100
-            </div>
-
-            <div id="attackText"
-                 class="hudInfo">
-                ATK: 1
-            </div>
-
-            <div id="defenseText"
-                 class="hudInfo">
-                DEFESA: 100%
-            </div>
-
-            <div id="coinsText"
-                 class="hudInfo">
-                💰 MOEDAS: ∞
-            </div>
-
-            <div class="transformations">
-
-                <button class="transformButton">
-                    SSJ
-                </button>
-
-                <button class="transformButton">
-                    SSJ GOD
-                </button>
-
-                <button class="transformButton">
-                    SSJ BLUE
-                </button>
-
-                <button class="transformButton">
-                    INSTINTO
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- SKILLS -->
-
-        <div id="skills">
-
-            <button class="skillButton">
-                SKILL 1
-            </button>
-
-            <button class="skillButton">
-                SKILL 2
-            </button>
-
-            <button class="skillButton">
-                SKILL 3
-            </button>
-
-        </div>
-
-
-        <!-- ANALÓGICO -->
-
-        <div id="joystick">
-
-            <div id="stick"></div>
-
-        </div>
-
-
-        <!-- BOTÕES -->
-
-        <div id="actions">
-
-            <button id="attackButton"
-                    class="actionButton">
-                SOCO
-            </button>
-
-            <button id="dashButton"
-                    class="actionButton">
-                DASH
-            </button>
-
-            <button id="kiButton"
-                    class="actionButton">
-                KI
-            </button>
-
-            <button id="jumpButton"
-                    class="actionButton">
-                PULO
-            </button>
-
-        </div>
-
-
-        <div id="gameMessage"></div>
-
-
-        <!-- MENSAGEM VERTICAL -->
-
-        <div id="rotateMessage">
-
-            <div class="phone">
-                📱↔️
-            </div>
-
-            <h2>
-                Gire o celular
-            </h2>
+            <h3>Goku</h3>
 
             <p>
-                O Davi Z foi desenvolvido para jogar na horizontal.
+                HP: 90
             </p>
+
+            <p>
+                ATK: 1
+            </p>
+
+            <button
+                onclick="startGame('Goku')">
+
+                ESCOLHER
+
+            </button>
+
+        </div>
+
+
+        <div class="character">
+
+            <h3>Piccolo</h3>
+
+            <p>
+                HP: 110
+            </p>
+
+            <p>
+                ATK: 1
+            </p>
+
+            <button
+                onclick="startGame('Piccolo')">
+
+                ESCOLHER
+
+            </button>
+
+        </div>
+
+
+        <div class="character">
+
+            <h3>Vegeta</h3>
+
+            <p>
+                HP: 85
+            </p>
+
+            <p>
+                ATK: 1
+            </p>
+
+            <button
+                onclick="startGame('Vegeta')">
+
+                ESCOLHER
+
+            </button>
 
         </div>
 
     </div>
 
-</section>
+</div>
+
+
+<!-- =========================
+JOGO
+========================= -->
+
+<div id="game" class="screen">
+
+    <h2 id="gameTitle">
+        DAVI Z
+    </h2>
+
+    <p id="gameInfo">
+        Jogo iniciado!
+    </p>
+
+    <button
+        class="backButton"
+        onclick="goMenu()">
+
+        VOLTAR AO MENU
+
+    </button>
+
+</div>
+
 
 <script>
 
-/* =====================================================
-   DAVI Z — SISTEMA BASE
-===================================================== */
+/*
+========================================
+SISTEMA DE NAVEGAÇÃO
+========================================
+*/
 
-const menuScreen =
-    document.getElementById("menuScreen");
-
-const selectScreen =
-    document.getElementById("selectScreen");
-
-const gameScreen =
-    document.getElementById("gameScreen");
-
-const viewport =
-    document.getElementById("gameViewport");
-
-const canvas =
-    document.getElementById("gameCanvas");
-
-const ctx =
-    canvas.getContext("2d");
-
-const hudName =
-    document.getElementById("hudName");
-
-const hpBar =
-    document.getElementById("hpBar");
-
-const energyBar =
-    document.getElementById("energyBar");
-
-const hpText =
-    document.getElementById("hpText");
-
-const energyText =
-    document.getElementById("energyText");
-
-const attackText =
-    document.getElementById("attackText");
-
-const defenseText =
-    document.getElementById("defenseText");
-
-const coinsText =
-    document.getElementById("coinsText");
-
-let currentMode = "treino";
-let selectedCharacter = "Goku";
-let player = null;
-let animationFrame;
+let currentMode = "";
 
 
-/* =====================================================
-   DIMENSÕES DO JOGO
-===================================================== */
+/*
+ABRIR SELEÇÃO
+*/
 
-const WORLD_WIDTH = 1600;
-const WORLD_HEIGHT = 900;
-
-function resizeGame(){
-
-    canvas.width = WORLD_WIDTH;
-    canvas.height = WORLD_HEIGHT;
-
-}
-
-resizeGame();
-
-
-/* =====================================================
-   PERSONAGENS
-===================================================== */
-
-const characters = {
-
-    Goku:{
-        name:"Goku",
-        maxHp:90,
-        attack:1,
-        maxEnergy:100,
-        defense:100,
-        color:"#ef831d"
-    },
-
-    Piccolo:{
-        name:"Piccolo",
-        maxHp:110,
-        attack:1,
-        maxEnergy:100,
-        defense:100,
-        color:"#2ab84e"
-    },
-
-    Vegeta:{
-        name:"Vegeta",
-        maxHp:85,
-        attack:1,
-        maxEnergy:100,
-        defense:100,
-        color:"#2766d8"
-    }
-
-};
-
-
-/* =====================================================
-   CRIAR JOGADOR
-===================================================== */
-
-function createPlayer(name){
-
-    const data =
-        characters[name];
-
-    return {
-
-        name:data.name,
-
-        x:WORLD_WIDTH/2,
-        y:WORLD_HEIGHT-160,
-
-        width:55,
-        height:105,
-
-        maxHp:data.maxHp,
-        hp:data.maxHp,
-
-        attack:data.attack,
-
-        maxEnergy:data.maxEnergy,
-        energy:data.maxEnergy,
-
-        baseDefense:data.defense,
-        defense:data.defense,
-
-        color:data.color,
-
-        speed:5,
-
-        velocityY:0,
-        jumpPower:15,
-
-        grounded:true,
-
-        facing:1,
-
-        state:"idle",
-
-        attackTimer:0,
-        dashTimer:0,
-
-        invulnerable:false,
-
-        coins:Infinity
-
-    };
-
-}
-
-
-/* =====================================================
-   ESCOLHER MODO
-===================================================== */
-
-function chooseMode(mode){
+function openSelection(mode){
 
     currentMode = mode;
 
-    menuScreen.classList.remove("active");
+    document
+        .getElementById("menu")
+        .classList
+        .remove("active");
 
-    selectScreen.classList.add("active");
-
-}
-
-
-/* =====================================================
-   ESCOLHER PERSONAGEM
-===================================================== */
-
-function selectCharacter(name){
-
-    selectedCharacter = name;
-
-    selectScreen.classList.remove("active");
-
-    gameScreen.classList.add("active");
-
-    player =
-        createPlayer(name);
-
-    startGame();
+    document
+        .getElementById("selection")
+        .classList
+        .add("active");
 
 }
 
 
-/* =====================================================
-   DEFESA POR ENERGIA
-===================================================== */
+/*
+INICIAR JOGO
+*/
 
-function updateDefense(){
+function startGame(character){
 
-    const percentage =
-        player.energy /
-        player.maxEnergy;
+    document
+        .getElementById("selection")
+        .classList
+        .remove("active");
 
-    if(percentage < 0.30){
+    document
+        .getElementById("game")
+        .classList
+        .add("active");
 
-        player.defense = 0;
+    document
+        .getElementById("gameTitle")
+        .textContent =
+        character;
 
-    }
-
-    else if(percentage < 0.50){
-
-        player.defense =
-            player.baseDefense * .60;
-
-    }
-
-    else if(percentage < 0.70){
-
-        player.defense =
-            player.baseDefense * .80;
-
-    }
-
-    else{
-
-        player.defense =
-            player.baseDefense;
-
-    }
+    document
+        .getElementById("gameInfo")
+        .textContent =
+        "Modo: " +
+        currentMode +
+        " | Lutador: " +
+        character;
 
 }
 
 
-/* =====================================================
-   GASTAR ENERGIA
-===================================================== */
+/*
+VOLTAR AO MENU
+*/
 
-function spendEnergy(amount){
+function goMenu(){
 
-    if(player.energy < amount){
+    document
+        .getElementById("game")
+        .classList
+        .remove("active");
 
-        return false;
-
-    }
-
-    player.energy -= amount;
-
-    updateDefense();
-
-    return true;
+    document
+        .getElementById("menu")
+        .classList
+        .add("active");
 
 }
 
+</script>
 
-/* =====================================================
-   ATAQUE
-===================================================== */
-
-function basicAttack(){
-
-    if(!player) return;
-
-    if(!spendEnergy(1)) return;
-
-    player.state="attack";
-
-    player.attackTimer=18;
-
-}
-
-
-/* =====================================================
-   KI
-===================================================== */
-
-function kiAttack(){
-
-    if(!player) return;
-
-    if(!spendEnergy(2)) return;
-
-    player.state="ki";
-
-    player.attackTimer=25;
-
-}
-
-
-/* =====================================================
-   DASH
-===================================================== */
-
-function dash(){
-
-    if(!player) return;
-
-    if(!spendEnergy(2)) return;
-
-    player.state="dash";
-
-    player.dashTimer=12;
-
-    player.i
+</body>
+</html>
