@@ -1,21 +1,21 @@
-/* ==================================================
+/* =========================================
    DAVI Z
-   SISTEMA PRINCIPAL DE TELAS
-================================================== */
+   CONTROLE DAS TELAS
+========================================= */
 
 
-/* =========================
-   ESTADO DO JOGO
-========================= */
+/* =========================================
+   PERSONAGENS ESCOLHIDOS
+========================================= */
 
 let playerCharacter = null;
 
 let enemyCharacter = null;
 
 
-/* =========================
-   REFERÊNCIAS DAS TELAS
-========================= */
+/* =========================================
+   TELAS
+========================================= */
 
 const menu =
     document.getElementById("menu");
@@ -30,9 +30,9 @@ const battle =
     document.getElementById("battle");
 
 
-/* =========================
-   FUNÇÃO PARA TROCAR DE TELA
-========================= */
+/* =========================================
+   TROCAR DE TELA
+========================================= */
 
 function showScreen(screen) {
 
@@ -49,64 +49,52 @@ function showScreen(screen) {
 }
 
 
-/* =========================
+/* =========================================
    BOTÃO VERSUS
-========================= */
+========================================= */
 
-const versusButton =
-    document.getElementById("versusButton");
-
-
-versusButton.addEventListener(
-    "click",
-    function () {
+document
+    .getElementById("versusButton")
+    .addEventListener("click", function () {
 
         showScreen(playerSelection);
 
-    }
-);
+    });
 
 
-/* =========================
-   ESCOLHA DO JOGADOR
-========================= */
+/* =========================================
+   ESCOLHER JOGADOR
+========================================= */
 
-const characterButtons =
+const playerButtons =
     document.querySelectorAll(
         ".character-button"
     );
 
 
-characterButtons.forEach(
-    function (button) {
+playerButtons.forEach(function (button) {
 
-        button.addEventListener(
-            "click",
-            function () {
+    button.addEventListener(
+        "click",
+        function () {
 
-                playerCharacter =
-                    button.dataset.character;
-
-
-                /*
-                 Depois de escolher
-                 o personagem do jogador,
-                 vamos para a escolha
-                 do adversário.
-                */
-
-                showScreen(enemySelection);
-
-            }
-        );
-
-    }
-);
+            playerCharacter =
+                button.dataset.character;
 
 
-/* =========================
-   ESCOLHA DO OPONENTE
-========================= */
+            showScreen(
+                enemySelection
+            );
+
+        }
+    );
+
+});
+
+
+/* =========================================
+   ESCOLHER RIVAL
+========================================= */
 
 const enemyButtons =
     document.querySelectorAll(
@@ -114,55 +102,29 @@ const enemyButtons =
     );
 
 
-enemyButtons.forEach(
-    function (button) {
+enemyButtons.forEach(function (button) {
 
-        button.addEventListener(
-            "click",
-            function () {
+    button.addEventListener(
+        "click",
+        function () {
 
-                enemyCharacter =
-                    button.dataset.character;
-
-
-                /*
-                 OS DOIS PERSONAGENS
-                 JÁ FORAM ESCOLHIDOS.
-
-                 AGORA ENTRA DIRETAMENTE
-                 NA PARTIDA.
-                */
-
-                startBattle();
-
-            }
-        );
-
-    }
-);
+            enemyCharacter =
+                button.dataset.character;
 
 
-/* =========================
+            startBattle();
+
+        }
+    );
+
+});
+
+
+/* =========================================
    INICIAR PARTIDA
-========================= */
+========================================= */
 
 function startBattle() {
-
-    /*
-     Mostra os nomes escolhidos.
-    */
-
-    document.getElementById(
-        "playerName"
-    ).textContent =
-        playerCharacter;
-
-
-    document.getElementById(
-        "enemyName"
-    ).textContent =
-        enemyCharacter;
-
 
     document.getElementById(
         "battlePlayer"
@@ -176,22 +138,15 @@ function startBattle() {
         enemyCharacter;
 
 
-    /*
-     Aqui NÃO voltamos para o menu.
-
-     A tela de batalha é aberta
-     imediatamente.
-    */
-
     showScreen(battle);
 
 }
 
 
-/* =========================
-   TESTE INICIAL
-========================= */
+/* =========================================
+   TESTE
+========================================= */
 
 console.log(
-    "Davi Z carregado corretamente."
+    "DAVI Z: sistema de telas carregado."
 );
