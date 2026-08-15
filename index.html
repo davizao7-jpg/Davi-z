@@ -1,1452 +1,165 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>Davi Z - Versus</title>
-
-<style>
-
-*{
-    box-sizing:border-box;
-    user-select:none;
-    -webkit-user-select:none;
-}
-
-html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    font-family:Arial,sans-serif;
-    background:#101010;
-}
-
-button{
-    touch-action:manipulation;
-}
-
-/* =========================
-TELAS
-========================= */
-
-.screen{
-    position:absolute;
-    inset:0;
-    display:none;
-}
-
-.screen.active{
-    display:flex;
-}
-
-
-/* =========================
-MENU
-========================= */
-
-#menu{
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-
-    background:
-        linear-gradient(
-            #148fd0,
-            #8ee4ff
-        );
-}
-
-#menu h1{
-    color:white;
-    font-size:60px;
-    margin-bottom:40px;
-
-    text-shadow:
-        4px 4px 0 #07518a;
-}
-
-#playButton{
-    width:280px;
-    padding:20px;
-
-    border:3px solid white;
-    border-radius:15px;
-
-    background:#0874c9;
-    color:white;
-
-    font-size:24px;
-    font-weight:bold;
-}
-
-
-/* =========================
-SELEÇÃO DO JOGADOR
-========================= */
-
-#playerSelect{
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-
-    background:#071b3c;
-    color:white;
-}
-
-#playerSelect h2{
-    margin-bottom:30px;
-}
-
-.characters{
-    display:flex;
-    gap:20px;
-}
-
-.character{
-    width:180px;
-    padding:20px;
-
-    text-align:center;
-
-    background:#102e5b;
-
-    border:2px solid #55d9ff;
-    border-radius:15px;
-}
-
-.character h3{
-    font-size:25px;
-}
-
-.selectButton{
-    padding:12px 20px;
-
-    border:0;
-    border-radius:8px;
-
-    background:#159fe0;
-    color:white;
-
-    font-weight:bold;
-}
-
-
-/* =========================
-SELEÇÃO DO OPONENTE
-========================= */
-
-#enemySelect{
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-
-    background:#250d35;
-    color:white;
-}
-
-#enemySelect h2{
-    margin-bottom:30px;
-}
-
-
-/* =========================
-PARTIDA
-========================= */
-
-#battle{
-    align-items:center;
-    justify-content:center;
-
-    background:#111;
-}
-
-
-/*
-A arena ocupa a tela inteira.
-*/
-
-#arena{
-    position:relative;
-
-    width:100vw;
-    height:100vh;
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            #48bbed 0%,
-            #aeeaff 65%,
-            #559e45 66%,
-            #28632d 100%
-        );
-}
-
-
-/* =========================
-HUD
-========================= */
-
-.hud{
-    position:absolute;
-
-    top:15px;
-
-    width:260px;
-
-    color:white;
-
-    font-weight:bold;
-
-    text-shadow:
-        2px 2px 3px black;
-
-    z-index:20;
-}
-
-#playerHud{
-    left:15px;
-}
-
-#enemyHud{
-    right:15px;
-    text-align:right;
-}
-
-.bar{
-    height:18px;
-
-    margin-top:5px;
-
-    border:2px solid white;
-    border-radius:10px;
-
-    background:#111;
-
-    overflow:hidden;
-}
-
-.hp{
-    width:100%;
-    height:100%;
-
-    background:#e52323;
-}
-
-
-/* =========================
-PERSONAGENS
-========================= */
-
-.fighter{
-    position:absolute;
-
-    width:50px;
-    height:85px;
-
-    bottom:110px;
-
-    border-radius:
-        22px 22px 8px 8px;
-
-    z-index:10;
-}
-
-.fighter::before{
-    content:"";
-
-    position:absolute;
-
-    width:50px;
-    height:50px;
-
-    top:-38px;
-
-    border-radius:50%;
-
-    background:inherit;
-}
-
-#player{
-    left:25%;
-
-    background:#f08b20;
-
-    box-shadow:
-        0 0 20px #ffb52e;
-}
-
-#enemy{
-    left:70%;
-
-    background:#c8323c;
-
-    box-shadow:
-        0 0 20px #ff3030;
-}
-
-
-/* =========================
-CONTROLES
-========================= */
-
-#joystick{
-    position:absolute;
-
-    left:25px;
-    bottom:25px;
-
-    width:110px;
-    height:110px;
-
-    border-radius:50%;
-
-    background:rgba(0,0,0,.3);
-
-    border:3px solid white;
-
-    z-index:30;
-}
-
-#stick{
-    position:absolute;
-
-    width:45px;
-    height:45px;
-
-    left:50%;
-    top:50%;
-
-    transform:translate(-50%,-50%);
-
-    border-radius:50%;
-
-    background:white;
-}
-
-
-.control{
-    position:absolute;
-
-    width:70px;
-    height:70px;
-
-    border-radius:50%;
-
-    border:3px solid white;
-
-    color:white;
-
-    font-size:11px;
-    font-weight:bold;
-
-    z-index:30;
-}
-
-#attack{
-    right:25px;
-    bottom:30px;
-
-    background:#df381c;
-}
-
-#dash{
-    right:115px;
-    bottom:105px;
-
-    background:#4c4cb9;
-}
-
-#ki{
-    right:25px;
-    bottom:120px;
-
-    background:#087fce;
-}
-
-#jump{
-    left:155px;
-    bottom:30px;
-
-    background:#329d39;
-}
-
-
-/* =========================
-MENSAGEM
-========================= */
-
-#battleMessage{
-    position:absolute;
-
-    left:50%;
-    top:45%;
-
-    transform:
-        translate(-50%,-50%);
-
-    color:white;
-
-    font-size:50px;
-    font-weight:bold;
-
-    text-align:center;
-
-    text-shadow:
-        4px 4px 8px black;
-
-    z-index:100;
-}
-
-</style>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Davi Z</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 </head>
 
 <body>
 
+    <!-- =========================
+         MENU PRINCIPAL
+    ========================== -->
 
-<!-- =================================================
-TELA 1 — MENU
-================================================= -->
+    <section
+        id="menu"
+        class="screen active"
+    >
 
-<div id="menu" class="screen active">
+        <h1>DAVI Z</h1>
 
-    <h1>DAVI Z</h1>
+        <button
+            id="versusButton"
+            class="main-button"
+        >
+            VERSUS
+        </button>
 
-    <button
-        id="playButton"
-        onclick="openPlayerSelection()">
-
-        JOGAR VERSUS
-
-    </button>
-
-</div>
+    </section>
 
 
-<!-- =================================================
-TELA 2 — ESCOLHER JOGADOR
-================================================= -->
+    <!-- =========================
+         SELEÇÃO DO JOGADOR
+    ========================== -->
 
-<div id="playerSelect" class="screen">
+    <section
+        id="playerSelection"
+        class="screen"
+    >
 
-    <h2>ESCOLHA SEU PERSONAGEM</h2>
+        <h2>ESCOLHA SEU PERSONAGEM</h2>
 
-    <div class="characters">
-
-        <div class="character">
-
-            <h3>GOKU</h3>
-
-            <p>HP: 90</p>
-            <p>ATK: 1</p>
+        <div class="characters">
 
             <button
-                class="selectButton"
-                onclick="choosePlayer('Goku')">
-
-                ESCOLHER GOKU
-
-            </button>
-
-        </div>
-
-
-        <div class="character">
-
-            <h3>PICCOLO</h3>
-
-            <p>HP: 110</p>
-            <p>ATK: 1</p>
-
-            <button
-                class="selectButton"
-                onclick="choosePlayer('Piccolo')">
-
-                ESCOLHER PICCOLO
-
-            </button>
-
-        </div>
-
-
-        <div class="character">
-
-            <h3>VEGETA</h3>
-
-            <p>HP: 85</p>
-            <p>ATK: 1</p>
-
-            <button
-                class="selectButton"
-                onclick="choosePlayer('Vegeta')">
-
-                ESCOLHER VEGETA
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =================================================
-TELA 3 — ESCOLHER OPONENTE
-================================================= -->
-
-<div id="enemySelect" class="screen">
-
-    <h2>ESCOLHA O OPONENTE</h2>
-
-    <div class="characters">
-
-        <div class="character">
-
-            <h3>GOKU</h3>
-
-            <button
-                class="selectButton"
-                onclick="chooseEnemy('Goku')">
-
-                LUTAR CONTRA GOKU
-
-            </button>
-
-        </div>
-
-
-        <div class="character">
-
-            <h3>PICCOLO</h3>
-
-            <button
-                class="selectButton"
-                onclick="chooseEnemy('Piccolo')">
-
-                LUTAR CONTRA PICCOLO
-
-            </button>
-
-        </div>
-
-
-        <div class="character">
-
-            <h3>VEGETA</h3>
-
-            <button
-                class="selectButton"
-                onclick="chooseEnemy('Vegeta')">
-
-                LUTAR CONTRA VEGETA
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =================================================
-TELA 4 — PARTIDA
-================================================= -->
-
-<div id="battle" class="screen">
-
-    <div id="arena">
-
-        <!-- HUD JOGADOR -->
-
-        <div
-            id="playerHud"
-            class="hud">
-
-            <div id="playerName">
+                class="character-button"
+                data-character="Goku"
+            >
                 GOKU
-            </div>
+            </button>
 
-            <div class="bar">
+            <button
+                class="character-button"
+                data-character="Piccolo"
+            >
+                PICCOLO
+            </button>
 
-                <div
-                    id="playerHpBar"
-                    class="hp">
-                </div>
-
-            </div>
-
-            <div>
-                HP:
-                <span id="playerHp">
-                    90
-                </span>
-            </div>
-
-            <div>
-                ATK:
-                <span id="playerAtk">
-                    1
-                </span>
-            </div>
-
-        </div>
-
-
-        <!-- HUD OPONENTE -->
-
-        <div
-            id="enemyHud"
-            class="hud">
-
-            <div id="enemyName">
+            <button
+                class="character-button"
+                data-character="Vegeta"
+            >
                 VEGETA
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SELEÇÃO DO OPONENTE
+    ========================== -->
+
+    <section
+        id="enemySelection"
+        class="screen"
+    >
+
+        <h2>ESCOLHA O OPONENTE</h2>
+
+        <div class="characters">
+
+            <button
+                class="enemy-button"
+                data-character="Goku"
+            >
+                LUTAR CONTRA GOKU
+            </button>
+
+            <button
+                class="enemy-button"
+                data-character="Piccolo"
+            >
+                LUTAR CONTRA PICCOLO
+            </button>
+
+            <button
+                class="enemy-button"
+                data-character="Vegeta"
+            >
+                LUTAR CONTRA VEGETA
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ARENA
+    ========================== -->
+
+    <section
+        id="battle"
+        class="screen"
+    >
+
+        <div id="arena">
+
+            <div id="playerCharacter">
+                <span id="playerName"></span>
             </div>
 
-            <div class="bar">
-
-                <div
-                    id="enemyHpBar"
-                    class="hp">
-                </div>
-
+            <div id="enemyCharacter">
+                <span id="enemyName"></span>
             </div>
 
-            <div>
-                HP:
-                <span id="enemyHp">
-                    85
-                </span>
-            </div>
+            <div id="battleInfo">
 
-            <div>
-                ATK:
-                <span id="enemyAtk">
-                    1
-                </span>
+                <h2>
+                    PARTIDA INICIADA
+                </h2>
+
+                <p>
+                    <span id="battlePlayer"></span>
+                    VS
+                    <span id="battleEnemy"></span>
+                </p>
+
             </div>
 
         </div>
 
+    </section>
 
-        <!-- PERSONAGENS -->
 
-        <div
-            id="player"
-            class="fighter">
-        </div>
+    <script
+        src="js/main.js"
+    ></script>
 
-        <div
-            id="enemy"
-            class="fighter">
-        </div>
+</body>
 
-
-        <!-- CONTROLES -->
-
-        <div id="joystick">
-
-            <div id="stick"></div>
-
-        </div>
-
-
-        <button
-            id="jump"
-            class="control">
-
-            PULO
-
-        </button>
-
-
-        <button
-            id="attack"
-            class="control">
-
-            ATAQUE
-
-        </button>
-
-
-        <button
-            id="dash"
-            class="control">
-
-            DASH
-
-        </button>
-
-
-        <button
-            id="ki"
-            class="control">
-
-            KI
-
-        </button>
-
-
-        <div id="battleMessage"></div>
-
-    </div>
-
-</div>
-
-
-<script>
-
-/* =================================================
-DADOS DOS PERSONAGENS
-================================================= */
-
-const characters = {
-
-    Goku:{
-        hp:90,
-        atk:1,
-        color:"#f08b20"
-    },
-
-    Piccolo:{
-        hp:110,
-        atk:1,
-        color:"#2db84d"
-    },
-
-    Vegeta:{
-        hp:85,
-        atk:1,
-        color:"#2867d5"
-    }
-
-};
-
-
-/* =================================================
-VARIÁVEIS
-================================================= */
-
-let playerCharacter=null;
-let enemyCharacter=null;
-
-let playerData=null;
-let enemyData=null;
-
-let gameRunning=false;
-
-let playerX=0;
-let enemyX=0;
-
-let playerDirection=1;
-
-let playerEnergy=100;
-
-let playerCooldown=0;
-let dashCooldown=0;
-
-let keys={};
-
-
-/* =================================================
-TROCAR TELA
-================================================= */
-
-function showScreen(id){
-
-    document
-        .querySelectorAll(".screen")
-        .forEach(screen=>{
-
-            screen.classList.remove("active");
-
-        });
-
-    document
-        .getElementById(id)
-        .classList.add("active");
-
-}
-
-
-/* =================================================
-MENU → SELEÇÃO
-================================================= */
-
-function openPlayerSelection(){
-
-    showScreen("playerSelect");
-
-}
-
-
-/* =================================================
-ESCOLHER JOGADOR
-================================================= */
-
-function choosePlayer(name){
-
-    playerCharacter=name;
-
-    /*
-    IMPORTANTE:
-    Depois de escolher o personagem,
-    o jogo NÃO começa ainda.
-
-    Primeiro aparece a seleção
-    do adversário.
-    */
-
-    showScreen("enemySelect");
-
-}
-
-
-/* =================================================
-ESCOLHER OPONENTE
-================================================= */
-
-function chooseEnemy(name){
-
-    enemyCharacter=name;
-
-    /*
-    IMPORTANTE:
-    Depois de escolher AMBOS os personagens,
-    iniciar imediatamente a PARTIDA.
-
-    Não voltar para o menu.
-    Não mostrar outra tela.
-    */
-
-    startBattle();
-
-}
-
-
-/* =================================================
-INICIAR PARTIDA
-================================================= */
-
-function startBattle(){
-
-    playerData=
-        characters[playerCharacter];
-
-    enemyData=
-        characters[enemyCharacter];
-
-
-    playerX=
-        window.innerWidth*0.25;
-
-    enemyX=
-        window.innerWidth*0.70;
-
-
-    playerEnergy=100;
-
-    playerCooldown=0;
-
-    dashCooldown=0;
-
-
-    gameRunning=true;
-
-
-    document
-        .getElementById("playerName")
-        .textContent=
-        playerCharacter;
-
-
-    document
-        .getElementById("enemyName")
-        .textContent=
-        enemyCharacter;
-
-
-    document
-        .getElementById("playerHp")
-        .textContent=
-        playerData.hp;
-
-
-    document
-        .getElementById("enemyHp")
-        .textContent=
-        enemyData.hp;
-
-
-    document
-        .getElementById("playerAtk")
-        .textContent=
-        playerData.atk;
-
-
-    document
-        .getElementById("enemyAtk")
-        .textContent=
-        enemyData.atk;
-
-
-    document
-        .getElementById("player")
-        .style.background=
-        playerData.color;
-
-
-    document
-        .getElementById("enemy")
-        .style.background=
-        enemyData.color;
-
-
-    document
-        .getElementById("playerHpBar")
-        .style.width="100%";
-
-
-    document
-        .getElementById("enemyHpBar")
-        .style.width="100%";
-
-
-    document
-        .getElementById("battleMessage")
-        .textContent="";
-
-
-    positionCharacters();
-
-    showScreen("battle");
-
-    requestAnimationFrame(gameLoop);
-
-}
-
-
-/* =================================================
-POSIÇÃO
-================================================= */
-
-function positionCharacters(){
-
-    document
-        .getElementById("player")
-        .style.left=
-        playerX+"px";
-
-
-    document
-        .getElementById("enemy")
-        .style.left=
-        enemyX+"px";
-
-}
-
-
-/* =================================================
-ATAQUE
-================================================= */
-
-function basicAttack(){
-
-    if(!gameRunning)return;
-
-    if(playerCooldown>0)return;
-
-
-    /*
-    ATAQUE BÁSICO CUSTA 1 ENERGIA
-    */
-
-    if(playerEnergy<1)return;
-
-    playerEnergy-=1;
-
-    playerCooldown=20;
-
-
-    const distance=
-        Math.abs(
-            playerX-enemyX
-        );
-
-
-    /*
-    O ataque só acerta
-    se os personagens estiverem próximos.
-    */
-
-    if(distance<110){
-
-        damageEnemy(
-            playerData.atk
-        );
-
-    }
-
-}
-
-
-/* =================================================
-ATAQUE DE KI
-================================================= */
-
-function kiAttack(){
-
-    if(!gameRunning)return;
-
-    if(playerCooldown>0)return;
-
-
-    /*
-    ATAQUE DE KI CUSTA 2 ENERGIA
-    */
-
-    if(playerEnergy<2)return;
-
-    playerEnergy-=2;
-
-    playerCooldown=30;
-
-
-    const distance=
-        Math.abs(
-            playerX-enemyX
-        );
-
-
-    /*
-    KI possui alcance maior.
-    */
-
-    if(distance<350){
-
-        damageEnemy(
-            playerData.atk
-        );
-
-    }
-
-}
-
-
-/* =================================================
-DASH
-================================================= */
-
-function dash(){
-
-    if(!gameRunning)return;
-
-    if(dashCooldown>0)return;
-
-
-    /*
-    DASH CUSTA 2 ENERGIA
-    */
-
-    if(playerEnergy<2)return;
-
-    playerEnergy-=2;
-
-    dashCooldown=25;
-
-
-    /*
-    O jogador atravessa a posição
-    do adversário sem ser bloqueado.
-    */
-
-    playerX+=
-        playerDirection*150;
-
-
-    positionCharacters();
-
-}
-
-
-/* =================================================
-PULO
-================================================= */
-
-function jump(){
-
-    if(!gameRunning)return;
-
-    /*
-    Aqui o pulo é representado
-    visualmente levantando o personagem.
-    */
-
-    const fighter=
-        document.getElementById("player");
-
-    fighter.style.bottom="240px";
-
-
-    setTimeout(()=>{
-
-        if(gameRunning){
-
-            fighter.style.bottom="110px";
-
-        }
-
-    },500);
-
-}
-
-
-/* =================================================
-DANO
-================================================= */
-
-function damageEnemy(amount){
-
-    enemyData.hp-=amount;
-
-    if(enemyData.hp<0){
-
-        enemyData.hp=0;
-
-    }
-
-
-    document
-        .getElementById("enemyHp")
-        .textContent=
-        enemyData.hp;
-
-
-    const percent=
-        (
-            enemyData.hp/
-            characters[enemyCharacter].hp
-        )*100;
-
-
-    document
-        .getElementById("enemyHpBar")
-        .style.width=
-        percent+"%";
-
-
-    if(enemyData.hp<=0){
-
-        victory();
-
-    }
-
-}
-
-
-/* =================================================
-VITÓRIA
-================================================= */
-
-function victory(){
-
-    gameRunning=false;
-
-    document
-        .getElementById("battleMessage")
-        .textContent=
-        playerCharacter+
-        " VENCEU!";
-
-}
-
-
-/* =================================================
-MOVIMENTO
-================================================= */
-
-function updateMovement(){
-
-    if(!gameRunning)return;
-
-
-    let direction=0;
-
-
-    if(
-        keys["a"]||
-        keys["arrowleft"]
-    ){
-
-        direction=-1;
-
-    }
-
-
-    if(
-        keys["d"]||
-        keys["arrowright"]
-    ){
-
-        direction=1;
-
-    }
-
-
-    if(direction!==0){
-
-        playerX+=
-            direction*4;
-
-        playerDirection=direction;
-
-    }
-
-
-    /*
-    Limites da arena.
-    */
-
-    if(playerX<20){
-
-        playerX=20;
-
-    }
-
-    if(
-        playerX>
-        window.innerWidth-80
-    ){
-
-        playerX=
-            window.innerWidth-80;
-
-    }
-
-
-    positionCharacters();
-
-
-    if(playerCooldown>0){
-
-        playerCooldown--;
-
-    }
-
-
-    if(dashCooldown>0){
-
-        dashCooldown--;
-
-    }
-
-
-    /*
-    Regeneração de energia:
-    2 por segundo.
-    */
-
-    playerEnergy+=
-        2/60;
-
-
-    if(playerEnergy>100){
-
-        playerEnergy=100;
-
-    }
-
-}
-
-
-/* =================================================
-LOOP
-================================================= */
-
-function gameLoop(){
-
-    if(!gameRunning)return;
-
-    updateMovement();
-
-    requestAnimationFrame(
-        gameLoop
-    );
-
-}
-
-
-/* =================================================
-TECLADO
-================================================= */
-
-window.addEventListener(
-    "keydown",
-    event=>{
-
-        keys[
-            event.key.toLowerCase()
-        ]=true;
-
-
-        if(event.key===" "){
-
-            jump();
-
-        }
-
-
-        if(
-            event.key.toLowerCase()==="j"
-        ){
-
-            basicAttack();
-
-        }
-
-
-        if(
-            event.key.toLowerCase()==="k"
-        ){
-
-            kiAttack();
-
-        }
-
-
-        if(
-            event.key.toLowerCase()==="l"
-        ){
-
-            dash();
-
-        }
-
-    }
-);
-
-
-window.addEventListener(
-    "keyup",
-    event=>{
-
-        keys[
-            event.key.toLowerCase()
-        ]=false;
-
-    }
-);
-
-
-/* =================================================
-BOTÕES
-================================================= */
-
-document
-    .getElementById("attack")
-    .addEventListener(
-        "pointerdown",
-        event=>{
-
-            event.preventDefault();
-
-            basicAttack();
-
-        }
-    );
-
-
-document
-    .getElementById("ki")
-    .addEventListener(
-        "pointerdown",
-        event=>{
-
-            event.preventDefault();
-
-            kiAttack();
-
-        }
-    );
-
-
-document
-    .getElementById("dash")
-    .addEventListener(
-        "pointerdown",
-        event=>{
-
-            event.preventDefault();
-
-            dash();
-
-        }
-    );
-
-
-document
-    .getElementById("jump")
-    .addEventListener(
-        "pointerdown",
-        event=>{
-
-            event.preventDefault();
-
-            jump();
-
-        }
-    );
-
-
-/* =================================================
-ANALÓGICO
-================================================= */
-
-const joystick=
-    document.getElementById("joystick");
-
-const stick=
-    document.getElementById("stick");
-
-
-let joystickActive=false;
-
-
-function joystickMove(x){
-
-    const rect=
-        joystick.getBoundingClientRect();
-
-    const center=
-        rect.left+
-        rect.width/2;
-
-    const dx=
-        x-center;
-
-
-    if(dx>15){
-
-        playerX+=4;
-
-        playerDirection=1;
-
-    }
-
-    else if(dx<-15){
-
-        playerX-=4;
-
-        playerDirection=-1;
-
-    }
-
-
-    if(playerX<20){
-
-        playerX=20;
-
-            
+</html>
