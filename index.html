@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -15,12 +16,15 @@
         rel="stylesheet"
         href="css/style.css"
     >
+
 </head>
+
 
 <body>
 
+
     <!-- =========================
-         MENU PRINCIPAL
+         MENU
     ========================== -->
 
     <section
@@ -40,8 +44,9 @@
     </section>
 
 
+
     <!-- =========================
-         SELEÇÃO DO JOGADOR
+         ESCOLHA DO JOGADOR
     ========================== -->
 
     <section
@@ -49,7 +54,9 @@
         class="screen"
     >
 
-        <h2>ESCOLHA SEU PERSONAGEM</h2>
+        <h2>
+            ESCOLHA SEU PERSONAGEM
+        </h2>
 
         <div class="characters">
 
@@ -79,8 +86,9 @@
     </section>
 
 
+
     <!-- =========================
-         SELEÇÃO DO OPONENTE
+         ESCOLHA DO OPONENTE
     ========================== -->
 
     <section
@@ -88,7 +96,9 @@
         class="screen"
     >
 
-        <h2>ESCOLHA O OPONENTE</h2>
+        <h2>
+            ESCOLHA O OPONENTE
+        </h2>
 
         <div class="characters">
 
@@ -96,21 +106,21 @@
                 class="enemy-button"
                 data-character="Goku"
             >
-                LUTAR CONTRA GOKU
+                GOKU
             </button>
 
             <button
                 class="enemy-button"
                 data-character="Piccolo"
             >
-                LUTAR CONTRA PICCOLO
+                PICCOLO
             </button>
 
             <button
                 class="enemy-button"
                 data-character="Vegeta"
             >
-                LUTAR CONTRA VEGETA
+                VEGETA
             </button>
 
         </div>
@@ -118,8 +128,9 @@
     </section>
 
 
+
     <!-- =========================
-         ARENA
+         BATALHA
     ========================== -->
 
     <section
@@ -129,36 +140,287 @@
 
         <div id="arena">
 
-            <div id="playerCharacter">
-                <span id="playerName"></span>
+
+            <!-- =====================
+                 HUD DO JOGADOR
+            ====================== -->
+
+            <div
+                id="playerHud"
+                class="hud"
+            >
+
+                <div id="playerName">
+                    GOKU
+                </div>
+
+                <div class="bar">
+
+                    <div
+                        id="playerHpBar"
+                        class="hp"
+                    ></div>
+
+                </div>
+
+                <div class="bar">
+
+                    <div
+                        id="playerEnergyBar"
+                        class="energy"
+                    ></div>
+
+                </div>
+
+                <div>
+
+                    HP:
+                    <span id="playerHp">
+                        90
+                    </span>
+
+                </div>
+
+                <div>
+
+                    ENERGIA:
+                    <span id="playerEnergy">
+                        100
+                    </span>
+
+                </div>
+
+                <div>
+
+                    ATK:
+                    <span id="playerAtk">
+                        1
+                    </span>
+
+                </div>
+
             </div>
 
-            <div id="enemyCharacter">
-                <span id="enemyName"></span>
+
+
+            <!-- =====================
+                 HUD DO INIMIGO
+            ====================== -->
+
+            <div
+                id="enemyHud"
+                class="hud"
+            >
+
+                <div id="enemyName">
+                    VEGETA
+                </div>
+
+                <div class="bar">
+
+                    <div
+                        id="enemyHpBar"
+                        class="hp"
+                    ></div>
+
+                </div>
+
+                <div>
+
+                    HP:
+                    <span id="enemyHp">
+                        85
+                    </span>
+
+                </div>
+
+                <div>
+
+                    ATK:
+                    <span id="enemyAtk">
+                        1
+                    </span>
+
+                </div>
+
             </div>
 
-            <div id="battleInfo">
 
-                <h2>
-                    PARTIDA INICIADA
-                </h2>
 
-                <p>
-                    <span id="battlePlayer"></span>
-                    VS
-                    <span id="battleEnemy"></span>
-                </p>
+            <!-- =====================
+                 PERSONAGENS
+            ====================== -->
+
+            <div
+                id="playerCharacter"
+                class="fighter"
+            ></div>
+
+            <div
+                id="enemyCharacter"
+                class="fighter"
+            ></div>
+
+
+
+            <!-- =====================
+                 TRANSFORMAÇÕES
+            ====================== -->
+
+            <div id="transformations">
+
+                <button
+                    class="transform-button"
+                    id="ssjButton"
+                >
+                    SSJ
+                </button>
+
+                <button
+                    class="transform-button"
+                    id="godButton"
+                >
+                    SSJ GOD
+                </button>
+
+                <button
+                    class="transform-button"
+                    id="blueButton"
+                >
+                    SSJ BLUE
+                </button>
+
+                <button
+                    class="transform-button"
+                    id="uiButton"
+                >
+                    INSTINTO
+                </button>
 
             </div>
+
+
+
+            <!-- =====================
+                 SKILLS
+            ====================== -->
+
+            <div id="skills">
+
+                <button
+                    class="skill-button"
+                    id="skill1"
+                >
+                    SKILL 1
+                </button>
+
+                <button
+                    class="skill-button"
+                    id="skill2"
+                >
+                    SKILL 2
+                </button>
+
+                <button
+                    class="skill-button"
+                    id="skill3"
+                >
+                    SKILL 3
+                </button>
+
+            </div>
+
+
+
+            <!-- =====================
+                 CONTROLES
+            ====================== -->
+
+            <div id="controls">
+
+
+                <!-- ANALÓGICO -->
+
+                <div id="joystick">
+
+                    <div id="stick"></div>
+
+                </div>
+
+
+
+                <!-- PULO -->
+
+                <button
+                    id="jumpButton"
+                    class="control-button"
+                >
+                    PULO
+                </button>
+
+
+
+                <!-- ATAQUE -->
+
+                <button
+                    id="attackButton"
+                    class="control-button"
+                >
+                    ATAQUE
+                </button>
+
+
+
+                <!-- DASH -->
+
+                <button
+                    id="dashButton"
+                    class="control-button"
+                >
+                    DASH
+                </button>
+
+
+
+                <!-- KI -->
+
+                <button
+                    id="kiButton"
+                    class="control-button"
+                >
+                    KI
+                </button>
+
+
+            </div>
+
+
+
+            <!-- MENSAGEM DE VITÓRIA -->
+
+            <div
+                id="battleMessage"
+            ></div>
+
 
         </div>
 
     </section>
 
 
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
     <script
         src="js/main.js"
     ></script>
+
+    <script
+        src="js/game.js"
+    ></script>
+
 
 </body>
 
