@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 <title>Davi Z</title>
 
 <style>
@@ -19,17 +18,17 @@ html,body{
     height:100%;
     overflow:hidden;
     font-family:Arial,sans-serif;
-    background:#06152d;
+    background:#07152d;
 }
 
 button{
     font-family:Arial,sans-serif;
-    cursor:pointer;
+    touch-action:none;
 }
 
 .screen{
-    width:100%;
-    height:100%;
+    position:absolute;
+    inset:0;
     display:none;
 }
 
@@ -37,29 +36,19 @@ button{
     display:flex;
 }
 
-
-/* ==================================================
-   MENU
-================================================== */
+/* MENU */
 
 #menu{
-    position:relative;
     align-items:center;
     justify-content:center;
     flex-direction:column;
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            #1495d8,
-            #8fe3ff
-        );
+    background:linear-gradient(#1597da,#9ae8ff);
 }
 
 .cloud{
     position:absolute;
-    width:190px;
-    height:55px;
+    width:180px;
+    height:50px;
     background:white;
     border-radius:50px;
     opacity:.8;
@@ -74,94 +63,63 @@ button{
 }
 
 .cloud:before{
-    width:75px;
-    height:75px;
+    width:70px;
+    height:70px;
     left:25px;
-    bottom:8px;
+    bottom:5px;
 }
 
 .cloud:after{
-    width:90px;
-    height:90px;
+    width:85px;
+    height:85px;
     right:20px;
-    bottom:4px;
+    bottom:0;
 }
 
 .cloud1{
+    left:-40px;
     top:15%;
-    left:-50px;
 }
 
 .cloud2{
+    right:-40px;
     bottom:15%;
-    right:-50px;
 }
 
 #menu h1{
-    position:relative;
-    z-index:5;
-
-    margin:0 0 35px;
-
+    z-index:2;
     color:white;
-    font-size:70px;
-    font-weight:1000;
-
-    text-shadow:
-        4px 5px 0 #07548f,
-        0 8px 20px rgba(0,0,0,.3);
+    font-size:65px;
+    margin:0 0 35px;
+    text-shadow:4px 5px 0 #07528f;
 }
 
 .menuButton{
-    position:relative;
-    z-index:10;
-
+    z-index:5;
     width:280px;
     padding:17px;
-
     margin:7px;
-
     border:3px solid white;
     border-radius:14px;
-
     background:#0874c9;
     color:white;
-
     font-size:22px;
     font-weight:bold;
-
-    box-shadow:
-        0 5px 0 #06477d,
-        0 8px 15px rgba(0,0,0,.25);
 }
 
-.menuButton:active{
-    transform:translateY(4px);
-    box-shadow:0 1px 0 #06477d;
-}
-
-
-/* ==================================================
-   SELEÇÃO
-================================================== */
+/* SELEÇÃO */
 
 #selection{
     align-items:center;
     justify-content:center;
     flex-direction:column;
-
-    background:
-        linear-gradient(
-            #061a42,
-            #07518a
-        );
-
+    background:linear-gradient(#061a42,#07518a);
     color:white;
 }
 
 #selection h2{
     margin:0 0 25px;
-    font-size:38px;
+    font-size:36px;
 }
 
 .characters{
@@ -172,16 +130,10 @@ button{
 .character{
     width:190px;
     padding:18px;
-
     text-align:center;
-
     background:#092653;
-
     border:2px solid #54cfff;
     border-radius:15px;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.3);
 }
 
 .character h3{
@@ -195,464 +147,314 @@ button{
 
 .character button{
     margin-top:10px;
-
     padding:10px 20px;
-
     border:0;
     border-radius:8px;
-
     background:#0da9ed;
     color:white;
-
     font-weight:bold;
 }
 
-
-/* ==================================================
-   JOGO
-================================================== */
+/* JOGO */
 
 #game{
-    position:relative;
-
+    background:#111;
     align-items:center;
     justify-content:center;
-
-    overflow:hidden;
-
-    background:#70c9ed;
 }
-
-
-/*
-A área interna possui proporção horizontal.
-*/
 
 #gameWorld{
     position:relative;
-
-    width:min(100vw,177.777vh);
-    height:min(56.25vw,100vh);
-
-    aspect-ratio:16/9;
-
+    width:100vw;
+    height:100vh;
     overflow:hidden;
 
     background:
         linear-gradient(
-            #42b7ee 0%,
-            #bcecff 67%,
-            #4c9d43 68%,
-            #28672e 100%
+            #42b8ee 0%,
+            #aeeaff 62%,
+            #4d9d43 63%,
+            #28652c 100%
         );
 }
 
+/* CENÁRIO */
 
-/* ==================================================
-   CENÁRIO
-================================================== */
-
-.cloudGame{
+.gameCloud{
     position:absolute;
-
-    width:170px;
+    width:160px;
     height:45px;
-
-    background:rgba(255,255,255,.7);
-
+    background:rgba(255,255,255,.75);
     border-radius:50px;
 }
 
-.cloudGame:nth-child(1){
-    top:13%;
-    left:12%;
+.gameCloud.c1{
+    left:10%;
+    top:15%;
 }
 
-.cloudGame:nth-child(2){
-    top:20%;
+.gameCloud.c2{
     right:15%;
+    top:22%;
 }
 
-.cloudGame:nth-child(3){
-    top:9%;
-    left:48%;
-}
-
-
-/* ==================================================
-   HUD
-================================================== */
+/* HUD */
 
 #hud{
     position:absolute;
-
-    top:3%;
-    left:2%;
-
-    width:27%;
-
-    color:white;
-
+    top:15px;
+    left:15px;
+    width:260px;
     z-index:20;
-
-    text-shadow:
-        2px 2px 3px black;
-}
-
-#playerName{
-    font-size:20px;
+    color:white;
+    text-shadow:2px 2px 3px black;
     font-weight:bold;
-    margin-bottom:4px;
 }
 
-.barContainer{
-    width:100%;
-    height:15px;
+#enemyHud{
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:260px;
+    z-index:20;
+    color:white;
+    text-align:right;
+    text-shadow:2px 2px 3px black;
+    font-weight:bold;
+}
 
-    margin-bottom:5px;
-
+.bar{
+    height:18px;
+    margin:4px 0;
     border:2px solid white;
-    border-radius:8px;
-
+    border-radius:10px;
     background:#111;
-
     overflow:hidden;
 }
 
-#hpBar{
+#hpFill{
     width:100%;
     height:100%;
     background:#e52222;
 }
 
-#energyBar{
+#energyFill{
     width:100%;
     height:100%;
-    background:#1689ff;
-}
-
-#stats{
-    font-size:14px;
-    font-weight:bold;
-    line-height:1.5;
-}
-
-
-/* ==================================================
-   INIMIGO
-================================================== */
-
-#enemyHud{
-    position:absolute;
-
-    top:3%;
-    right:2%;
-
-    width:27%;
-
-    color:white;
-
-    text-align:right;
-
-    z-index:20;
-
-    text-shadow:
-        2px 2px 3px black;
-}
-
-#enemyName{
-    font-size:20px;
-    font-weight:bold;
-}
-
-#enemyHpBar{
-    width:100%;
-    height:15px;
-
-    border:2px solid white;
-    border-radius:8px;
-
-    background:#111;
-
-    overflow:hidden;
+    background:#1598ff;
 }
 
 #enemyHpFill{
     width:100%;
     height:100%;
-
     background:#e52222;
 }
 
-#enemyStats{
+.stats{
     font-size:14px;
-    font-weight:bold;
+    line-height:20px;
 }
 
-
-/* ==================================================
-   JOGADORES
-================================================== */
+/* PERSONAGENS */
 
 .fighter{
     position:absolute;
-
-    width:45px;
-    height:85px;
-
-    border-radius:25px 25px 8px 8px;
-
+    width:48px;
+    height:82px;
+    bottom:110px;
+    border-radius:22px 22px 8px 8px;
     z-index:10;
-
-    transition:none;
 }
 
 .fighter:before{
     content:"";
-
     position:absolute;
-
     width:48px;
     height:48px;
-
-    left:-1px;
-    top:-35px;
-
+    top:-38px;
+    left:0;
     border-radius:50%;
-
     background:inherit;
 }
 
 #player{
+    left:25%;
     background:#f08b20;
-
-    box-shadow:
-        0 0 15px rgba(255,170,30,.6);
+    box-shadow:0 0 18px #ffb300;
 }
 
 #enemy{
-    background:#c32b35;
-
-    box-shadow:
-        0 0 15px rgba(255,30,30,.5);
+    left:70%;
+    background:#c82d38;
+    box-shadow:0 0 18px #ff3333;
 }
 
+/* ATAQUE */
 
-/* ==================================================
-   ATAQUE VISUAL
-================================================== */
-
-.attackEffect{
+.punchEffect{
     position:absolute;
-
-    width:70px;
-    height:12px;
-
+    width:65px;
+    height:13px;
+    background:#fff35a;
     border-radius:10px;
-
-    background:#ffe66b;
-
-    box-shadow:
-        0 0 20px #fff200;
-
+    box-shadow:0 0 20px #fff000;
     z-index:9;
 }
 
 .kiEffect{
     position:absolute;
-
-    height:14px;
-
-    width:170px;
-
+    width:180px;
+    height:16px;
+    background:#28dfff;
     border-radius:20px;
-
-    background:#3deaff;
-
-    box-shadow:
-        0 0 25px #00d9ff,
-        0 0 45px #ffffff;
-
+    box-shadow:0 0 25px #00d9ff,0 0 45px white;
     z-index:9;
 }
 
-
-/* ==================================================
-   CONTROLES
-================================================== */
-
-#controls{
-    position:absolute;
-
-    inset:0;
-
-    pointer-events:none;
-
-    z-index:30;
-}
-
-
-/* ANALÓGICO */
+/* CONTROLES */
 
 #joystick{
     position:absolute;
-
-    left:4%;
-    bottom:7%;
-
+    left:25px;
+    bottom:25px;
     width:115px;
     height:115px;
-
     border-radius:50%;
-
-    background:rgba(0,0,0,.25);
-
+    background:rgba(0,0,0,.3);
     border:3px solid rgba(255,255,255,.7);
-
-    pointer-events:auto;
+    z-index:30;
+    touch-action:none;
 }
 
 #stick{
     position:absolute;
-
     width:48px;
     height:48px;
-
     left:50%;
     top:50%;
-
     transform:translate(-50%,-50%);
-
     border-radius:50%;
-
-    background:rgba(255,255,255,.75);
-
-    border:2px solid white;
+    background:rgba(255,255,255,.8);
 }
 
-
-/* BOTÕES */
-
-.controlButton{
+.control{
     position:absolute;
-
-    width:72px;
-    height:72px;
-
+    width:70px;
+    height:70px;
     border-radius:50%;
-
     border:3px solid white;
-
     color:white;
-
     font-weight:bold;
-
-    pointer-events:auto;
-
-    box-shadow:
-        0 5px 10px rgba(0,0,0,.3);
+    z-index:30;
 }
 
-#attackButton{
-    right:5%;
-    bottom:10%;
-
-    background:#d83b18;
+#jump{
+    left:160px;
+    bottom:30px;
+    background:#319b38;
 }
 
-#dashButton{
-    right:18%;
-    bottom:5%;
-
-    background:#4949b8;
+#attack{
+    right:25px;
+    bottom:30px;
+    background:#dc381b;
 }
 
-#kiButton{
-    right:18%;
-    bottom:22%;
-
-    background:#007fdb;
+#dash{
+    right:115px;
+    bottom:105px;
+    background:#4d4db8;
 }
 
-#jumpButton{
-    left:17%;
-    bottom:5%;
-
-    background:#379b35;
+#ki{
+    right:25px;
+    bottom:120px;
+    background:#087dcc;
 }
 
-
-/* ==================================================
-   SKILLS
-================================================== */
+/* SKILLS */
 
 #skills{
     position:absolute;
-
-    right:5%;
-    bottom:37%;
-
+    right:20px;
+    bottom:200px;
     display:flex;
-    gap:6px;
-
-    pointer-events:auto;
+    gap:7px;
+    z-index:30;
 }
 
 .skill{
-    padding:7px 10px;
-
-    border:2px solid white;
-    border-radius:7px;
-
-    background:rgba(0,0,0,.65);
-
+    padding:9px 12px;
+    background:rgba(0,0,0,.7);
     color:white;
-
-    font-size:11px;
+    border:2px solid white;
+    border-radius:8px;
     font-weight:bold;
 }
 
+/* TRANSFORMAÇÕES */
 
-/* ==================================================
-   MENSAGEM
-================================================== */
-
-#message{
+#transformations{
     position:absolute;
-
-    left:50%;
-    top:50%;
-
-    transform:translate(-50%,-50%);
-
-    color:white;
-
-    font-size:55px;
-    font-weight:1000;
-
-    text-shadow:
-        4px 4px 8px black;
-
-    z-index:100;
-
-    display:none;
-
-    text-align:center;
+    left:15px;
+    top:155px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    z-index:30;
 }
 
+.transform{
+    padding:8px 12px;
+    background:rgba(0,0,0,.7);
+    color:white;
+    border:2px solid #ffd83d;
+    border-radius:8px;
+    font-weight:bold;
+}
 
-/* ==================================================
-   RESPONSIVO
-================================================== */
+/* MENSAGEM */
+
+#message{
+    display:none;
+    position:absolute;
+    z-index:100;
+    left:50%;
+    top:45%;
+    transform:translate(-50%,-50%);
+    color:white;
+    font-size:45px;
+    font-weight:bold;
+    text-align:center;
+    text-shadow:4px 4px 8px black;
+}
+
+#backGame{
+    position:absolute;
+    right:15px;
+    top:100px;
+    z-index:40;
+    padding:8px 14px;
+    background:#a71919;
+    color:white;
+    border:2px solid white;
+    border-radius:8px;
+}
 
 @media(max-width:700px){
+
+    #hud,
+    #enemyHud{
+        width:180px;
+        font-size:12px;
+    }
 
     #selection h2{
         font-size:25px;
     }
 
     .characters{
-        gap:6px;
+        gap:5px;
     }
 
     .character{
@@ -661,7 +463,7 @@ A área interna possui proporção horizontal.
     }
 
     .character h3{
-        font-size:17px;
+        font-size:18px;
     }
 
     .character p{
@@ -669,7 +471,7 @@ A área interna possui proporção horizontal.
     }
 
     .character button{
-        font-size:11px;
+        font-size:10px;
         padding:8px;
     }
 
@@ -683,40 +485,44 @@ A área interna possui proporção horizontal.
         height:36px;
     }
 
-    .controlButton{
-        width:55px;
-        height:55px;
+    .control{
+        width:58px;
+        height:58px;
         font-size:10px;
     }
 
-}
-
-
-/* ==================================================
-   VERTICAL
-================================================== */
-
-@media(orientation:portrait){
-
-    #gameWorld{
-        width:100vw;
-        height:56.25vw;
-
-        transform:scale(
-            min(1, calc(100vh / 56.25vw))
-        );
+    #jump{
+        left:125px;
     }
 
+    #attack{
+        right:20px;
+    }
+
+    #dash{
+        right:90px;
+    }
+
+    #ki{
+        right:20px;
+        bottom:105px;
+    }
+
+    #skills{
+        right:15px;
+        bottom:175px;
+    }
+
+    #transformations{
+        top:125px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-
-<!-- ==================================================
-     MENU
-================================================== -->
+<!-- MENU -->
 
 <div id="menu" class="screen active">
 
@@ -725,99 +531,57 @@ A área interna possui proporção horizontal.
 
     <h1>DAVI Z</h1>
 
-    <button
-        class="menuButton"
-        onclick="openSelection('treino')">
-
+    <button class="menuButton" onclick="openMode('treino')">
         TREINO
-
     </button>
 
-    <button
-        class="menuButton"
-        onclick="openSelection('infinito')">
-
+    <button class="menuButton" onclick="openMode('infinito')">
         INFINITO
-
     </button>
 
-    <button
-        class="menuButton"
-        onclick="openSelection('versus')">
-
+    <button class="menuButton" onclick="openMode('versus')">
         VERSUS
-
     </button>
 
 </div>
 
 
-<!-- ==================================================
-     SELEÇÃO
-================================================== -->
+<!-- SELEÇÃO -->
 
 <div id="selection" class="screen">
 
-    <h2>
-        ESCOLHA SEU LUTADOR
-    </h2>
+    <h2>ESCOLHA SEU LUTADOR</h2>
 
     <div class="characters">
 
         <div class="character">
-
-            <h3>Goku</h3>
-
+            <h3>GOKU</h3>
             <p>HP: 90</p>
             <p>ATK: 1</p>
             <p>ENERGIA: 100</p>
-            <p>DEFESA: 100%</p>
-
-            <button
-                onclick="startGame('Goku')">
-
+            <button onclick="selectCharacter('Goku')">
                 ESCOLHER
-
             </button>
-
         </div>
 
-
         <div class="character">
-
-            <h3>Piccolo</h3>
-
+            <h3>PICCOLO</h3>
             <p>HP: 110</p>
             <p>ATK: 1</p>
             <p>ENERGIA: 100</p>
-            <p>DEFESA: 100%</p>
-
-            <button
-                onclick="startGame('Piccolo')">
-
+            <button onclick="selectCharacter('Piccolo')">
                 ESCOLHER
-
             </button>
-
         </div>
 
-
         <div class="character">
-
-            <h3>Vegeta</h3>
-
+            <h3>VEGETA</h3>
             <p>HP: 85</p>
             <p>ATK: 1</p>
             <p>ENERGIA: 100</p>
-            <p>DEFESA: 100%</p>
-
-            <button
-                onclick="startGame('Vegeta')">
-
+            <button onclick="selectCharacter('Vegeta')">
                 ESCOLHER
-
             </button>
-
         </div>
 
     </div>
@@ -825,179 +589,131 @@ A área interna possui proporção horizontal.
 </div>
 
 
-<!-- ==================================================
-     JOGO
-================================================== -->
+<!-- JOGO -->
 
 <div id="game" class="screen">
 
     <div id="gameWorld">
 
-        <!-- CENÁRIO -->
+        <div class="gameCloud c1"></div>
+        <div class="gameCloud c2"></div>
 
-        <div class="cloudGame"></div>
-        <div class="cloudGame"></div>
-        <div class="cloudGame"></div>
-
-
-        <!-- HUD JOGADOR -->
+        <!-- HUD DO JOGADOR -->
 
         <div id="hud">
 
-            <div id="playerName">
-                Goku
+            <div id="playerName">GOKU</div>
+
+            <div class="bar">
+                <div id="hpFill"></div>
             </div>
 
-            <div class="barContainer">
-
-                <div id="hpBar"></div>
-
+            <div class="bar">
+                <div id="energyFill"></div>
             </div>
 
-            <div class="barContainer">
-
-                <div id="energyBar"></div>
-
-            </div>
-
-            <div id="stats">
-
-                HP: <span id="hpText">90 / 90</span>
+            <div class="stats">
+                HP:
+                <span id="hpText">90 / 90</span>
                 <br>
 
                 ENERGIA:
                 <span id="energyText">100 / 100</span>
-
                 <br>
 
                 ATK:
-                <span id="attackText">1</span>
-
+                <span id="atkText">1</span>
                 <br>
 
                 DEFESA:
                 <span id="defenseText">100%</span>
-
                 <br>
 
                 💰 MOEDAS:
                 <span id="coinsText">∞</span>
-
             </div>
 
         </div>
 
 
-        <!-- HUD INIMIGO -->
+        <!-- HUD DO INIMIGO -->
 
         <div id="enemyHud">
 
-            <div id="enemyName">
-                INIMIGO
-            </div>
+            <div>INIMIGO</div>
 
-            <div id="enemyHpBar">
-
+            <div class="bar">
                 <div id="enemyHpFill"></div>
-
             </div>
 
-            <div id="enemyStats">
-
+            <div class="stats">
                 HP:
-                <span id="enemyHpText">
-                    20 / 20
-                </span>
-
+                <span id="enemyHpText">20 / 20</span>
                 <br>
 
                 ATK:
-                <span id="enemyAttackText">
-                    1
-                </span>
-
+                <span id="enemyAtkText">1</span>
             </div>
+
+        </div>
+
+
+        <!-- TRANSFORMAÇÕES -->
+
+        <div id="transformations">
+
+            <button class="transform">SSJ</button>
+            <button class="transform">SSJ GOD</button>
+            <button class="transform">SSJ BLUE</button>
+            <button class="transform">INSTINTO</button>
 
         </div>
 
 
         <!-- PERSONAGENS -->
 
-        <div
-            id="player"
-            class="fighter">
-        </div>
+        <div id="player" class="fighter"></div>
 
-        <div
-            id="enemy"
-            class="fighter">
+        <div id="enemy" class="fighter"></div>
+
+
+        <!-- SKILLS -->
+
+        <div id="skills">
+
+            <button class="skill">SKILL 1</button>
+            <button class="skill">SKILL 2</button>
+            <button class="skill">SKILL 3</button>
+
         </div>
 
 
         <!-- CONTROLES -->
 
-        <div id="controls">
-
-            <div id="joystick">
-
-                <div id="stick"></div>
-
-            </div>
-
-
-            <button
-                id="jumpButton"
-                class="controlButton">
-
-                PULO
-
-            </button>
-
-
-            <button
-                id="attackButton"
-                class="controlButton">
-
-                SOCO
-
-            </button>
-
-
-            <button
-                id="dashButton"
-                class="controlButton">
-
-                DASH
-
-            </button>
-
-
-            <button
-                id="kiButton"
-                class="controlButton">
-
-                KI
-
-            </button>
-
-
-            <div id="skills">
-
-                <button class="skill">
-                    SKILL 1
-                </button>
-
-                <button class="skill">
-                    SKILL 2
-                </button>
-
-                <button class="skill">
-                    SKILL 3
-                </button>
-
-            </div>
-
+        <div id="joystick">
+            <div id="stick"></div>
         </div>
+
+        <button id="jump" class="control">
+            PULO
+        </button>
+
+        <button id="attack" class="control">
+            SOCO
+        </button>
+
+        <button id="dash" class="control">
+            DASH
+        </button>
+
+        <button id="ki" class="control">
+            KI
+        </button>
+
+
+        <button id="backGame" onclick="backToMenu()">
+            MENU
+        </button>
 
 
         <div id="message"></div>
@@ -1009,210 +725,189 @@ A área interna possui proporção horizontal.
 
 <script>
 
-/* ==================================================
-   CONFIGURAÇÃO
-================================================== */
+/* =========================
+   DADOS
+========================= */
 
 const characters = {
 
     Goku:{
         hp:90,
-        attack:1,
+        atk:1,
         color:"#f08b20"
     },
 
     Piccolo:{
         hp:110,
-        attack:1,
+        atk:1,
         color:"#2db84d"
     },
 
     Vegeta:{
         hp:85,
-        attack:1,
+        atk:1,
         color:"#2867d5"
     }
 
 };
 
+let mode="treino";
+let selectedCharacter="Goku";
 
-let currentMode = "treino";
-let currentCharacter = "Goku";
+let player;
+let enemy;
 
-let player = null;
-let enemy = null;
+let running=false;
 
-let gameRunning = false;
+let keys={};
 
-
-/* ==================================================
-   ELEMENTOS
-================================================== */
-
-const menu =
-    document.getElementById("menu");
-
-const selection =
-    document.getElementById("selection");
-
-const game =
-    document.getElementById("game");
-
-const gameWorld =
-    document.getElementById("gameWorld");
-
-const playerElement =
-    document.getElementById("player");
-
-const enemyElement =
-    document.getElementById("enemy");
+let joystickX=0;
+let joystickY=0;
+let joystickActive=false;
 
 
-/* ==================================================
-   ABRIR SELEÇÃO
-================================================== */
+/* =========================
+   TELAS
+========================= */
 
-function openSelection(mode){
+function showScreen(id){
 
-    currentMode = mode;
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen=>{
+            screen.classList.remove("active");
+        });
 
-    menu.classList.remove("active");
+    document
+        .getElementById(id)
+        .classList.add("active");
+}
 
-    selection.classList.add("active");
+
+/* =========================
+   MODO
+========================= */
+
+function openMode(selectedMode){
+
+    mode=selectedMode;
+
+    showScreen("selection");
 
 }
 
 
-/* ==================================================
-   INICIAR JOGO
-================================================== */
+/* =========================
+   ESCOLHER PERSONAGEM
+========================= */
 
-function startGame(character){
+function selectCharacter(name){
 
-    currentCharacter = character;
+    selectedCharacter=name;
 
-    const data =
-        characters[character];
+    startGame();
 
-    player = {
+}
 
-        name:character,
+
+/* =========================
+   COMEÇAR JOGO
+========================= */
+
+function startGame(){
+
+    const data=characters[selectedCharacter];
+
+    player={
+
+        name:selectedCharacter,
 
         maxHp:data.hp,
         hp:data.hp,
 
-        attack:data.attack,
+        atk:data.atk,
 
         maxEnergy:100,
         energy:100,
 
-        baseDefense:100,
         defense:100,
 
-        x:300,
+        x:250,
         y:0,
 
         velocityY:0,
 
         grounded:true,
 
-        speed:5,
-
         facing:1,
 
-        attacking:false,
+        speed:4,
 
-        attackTimer:0,
-
-        dashTimer:0,
-
-        invulnerable:false
+        attackCooldown:0,
+        dashCooldown:0
 
     };
 
 
-    enemy = {
+    enemy={
 
         maxHp:20,
         hp:20,
 
-        attack:1,
+        atk:1,
 
-        x:900,
+        x:850,
         y:0,
 
-        velocityY:0,
-
-        grounded:true,
-
-        speed:1.2,
-
-        attackTimer:0,
-
-        attacking:false
+        attackCooldown:0
 
     };
 
 
-    selection.classList.remove("active");
+    document
+        .getElementById("player")
+        .style.background=
+        data.color;
 
-    game.classList.add("active");
 
-    updatePlayerColor();
+    showScreen("game");
 
     updateHUD();
 
-    positionCharacters();
+    updateEnemyHUD();
 
-    gameRunning=true;
+    placeFighters();
 
-    requestAnimationFrame(gameLoop);
+    running=true;
 
-}
-
-
-/* ==================================================
-   COR DO PERSONAGEM
-================================================== */
-
-function updatePlayerColor(){
-
-    playerElement.style.background =
-        characters[currentCharacter].color;
+    requestAnimationFrame(loop);
 
 }
 
 
-/* ==================================================
+/* =========================
    DEFESA
-================================================== */
+========================= */
 
-function updateDefense(){
+function calculateDefense(){
 
-    const percentage =
-        player.energy /
+    let percentage=
+        player.energy/
         player.maxEnergy;
 
-
-    if(percentage < 0.30){
+    if(percentage<0.30){
 
         player.defense=0;
 
-    }
-
-    else if(percentage < 0.50){
+    }else if(percentage<0.50){
 
         player.defense=60;
 
-    }
-
-    else if(percentage < 0.70){
+    }else if(percentage<0.70){
 
         player.defense=80;
 
-    }
-
-    else{
+    }else{
 
         player.defense=100;
 
@@ -1221,182 +916,447 @@ function updateDefense(){
 }
 
 
-/* ==================================================
-   GASTAR ENERGIA
-================================================== */
+/* =========================
+   ENERGIA
+========================= */
 
 function spendEnergy(amount){
 
-    if(player.energy < amount){
-
+    if(player.energy<amount){
         return false;
-
     }
 
     player.energy-=amount;
 
-    updateDefense();
+    calculateDefense();
+
+    updateHUD();
 
     return true;
 
 }
 
 
-/* ==================================================
-   ATAQUE BÁSICO
-================================================== */
+/* =========================
+   SOCO
+========================= */
 
-function basicAttack(){
+function attack(){
 
-    if(!gameRunning)return;
+    if(!running)return;
 
-    if(player.attackTimer>0)return;
+    if(player.attackCooldown>0)return;
 
     if(!spendEnergy(1))return;
 
+    player.attackCooldown=25;
 
-    player.attacking=true;
+    const distance=
+        Math.abs(player.x-enemy.x);
 
-    player.attackTimer=18;
+    createPunch();
 
+    if(distance<120){
 
-    createAttackEffect();
-
-
-    /*
-    Ataque causa dano somente
-    quando o inimigo estiver próximo.
-    */
-
-    const distance =
-        Math.abs(
-            player.x-enemy.x
-        );
-
-
-    if(distance<130){
-
-        damageEnemy(
-            player.attack
-        );
+        damageEnemy(player.atk);
 
     }
 
 }
 
 
-/* ==================================================
-   ATAQUE DE KI
-================================================== */
+/* =========================
+   KI
+========================= */
 
 function kiAttack(){
 
-    if(!gameRunning)return;
+    if(!running)return;
 
-    if(player.attackTimer>0)return;
+    if(player.attackCooldown>0)return;
 
     if(!spendEnergy(2))return;
 
+    player.attackCooldown=35;
 
-    player.attacking=true;
+    createKi();
 
-    player.attackTimer=25;
+    const distance=
+        Math.abs(player.x-enemy.x);
 
+    if(distance<380){
 
-    createKiEffect();
-
-
-    const distance =
-        Math.abs(
-            player.x-enemy.x
-        );
-
-
-    /*
-    O Ki possui alcance maior.
-    */
-
-    if(distance<350){
-
-        damageEnemy(
-            player.attack
-        );
+        damageEnemy(player.atk);
 
     }
 
 }
 
 
-/* ==================================================
+/* =========================
    DASH
-================================================== */
+========================= */
 
 function dash(){
 
-    if(!gameRunning)return;
+    if(!running)return;
 
-    if(player.attackTimer>0)return;
+    if(player.dashCooldown>0)return;
 
     if(!spendEnergy(2))return;
 
+    player.dashCooldown=20;
+
+    player.x+=
+        player.facing*130;
 
     player.invulnerable=true;
 
-    player.dashTimer=12;
+    setTimeout(()=>{
+        player.invulnerable=false;
+    },300);
 
 }
 
 
-/* ==================================================
+/* =========================
    PULO
-================================================== */
+========================= */
 
 function jump(){
 
-    if(!gameRunning)return;
+    if(!running)return;
 
     if(!player.grounded)return;
 
     player.grounded=false;
 
-    player.velocityY=-13;
+    player.velocityY=-12;
 
 }
 
 
-/* ==================================================
-   DANO AO INIMIGO
-================================================== */
+/* =========================
+   DANO
+========================= */
 
-function damageEnemy(damage){
+function damageEnemy(amount){
 
-    enemy.hp-=damage;
+    enemy.hp-=amount;
 
     if(enemy.hp<0){
-
         enemy.hp=0;
-
     }
 
     updateEnemyHUD();
 
-
     if(enemy.hp<=0){
 
-        enemyDefeated();
+        running=false;
+
+        showMessage("VITÓRIA!");
 
     }
 
 }
 
 
-/* ==================================================
-   INIMIGO DERROTADO
-================================================== */
+/* =========================
+   INIMIGO
+========================= */
 
-function enemyDefeated(){
+function updateEnemy(){
 
-    gameRunning=false;
+    if(!running)return;
 
-    showMessage(
-        "INIMIGO DER
+    const distance=
+        player.x-enemy.x;
+
+    if(Math.abs(distance)>90){
+
+        enemy.x+=
+            Math.sign(distance)*1.1;
+
+    }else{
+
+        enemyAttack();
+
+    }
+
+    if(enemy.attackCooldown>0){
+
+        enemy.attackCooldown--;
+
+    }
+
+}
+
+
+/* =========================
+   ATAQUE INIMIGO
+========================= */
+
+function enemyAttack(){
+
+    if(enemy.attackCooldown>0)return;
+
+    enemy.attackCooldown=60;
+
+    if(player.invulnerable)return;
+
+    let damage=
+        enemy.atk*
+        (1-player.defense/100);
+
+    if(damage<0.2){
+        damage=0.2;
+    }
+
+    player.hp-=damage;
+
+    if(player.hp<0){
+        player.hp=0;
+    }
+
+    updateHUD();
+
+    if(player.hp<=0){
+
+        running=false;
+
+        showMessage("DERROTA!");
+
+    }
+
+}
+
+
+/* =========================
+   MOVIMENTO
+========================= */
+
+function updatePlayer(){
+
+    let movement=joystickX;
+
+    if(keys["a"]||keys["arrowleft"]){
+        movement=-1;
+    }
+
+    if(keys["d"]||keys["arrowright"]){
+        movement=1;
+    }
+
+    if(Math.abs(movement)>0.1){
+
+        player.x+=
+            movement*player.speed;
+
+        player.facing=
+            movement>0?1:-1;
+
+    }
+
+
+    /* gravidade */
+
+    if(!player.grounded){
+
+        player.velocityY+=0.6;
+
+        player.y+=
+            player.velocityY;
+
+        if(player.y<=0){
+
+            player.y=0;
+
+            player.velocityY=0;
+
+            player.grounded=true;
+
+        }
+
+    }
+
+
+    /* limites */
+
+    if(player.x<40){
+        player.x=40;
+    }
+
+    if(player.x>1300){
+        player.x=1300;
+    }
+
+
+    if(player.attackCooldown>0){
+        player.attackCooldown--;
+    }
+
+    if(player.dashCooldown>0){
+        player.dashCooldown--;
+    }
+
+}
+
+
+/* =========================
+   REGENERAÇÃO
+========================= */
+
+function regenerateEnergy(){
+
+    if(!running)return;
+
+    player.energy+=2/60;
+
+    if(player.energy>100){
+        player.energy=100;
+    }
+
+    calculateDefense();
+
+}
+
+
+/* =========================
+   POSIÇÃO
+========================= */
+
+function placeFighters(){
+
+    const playerElement=
+        document.getElementById("player");
+
+    const enemyElement=
+        document.getElementById("enemy");
+
+
+    playerElement.style.left=
+        player.x+"px";
+
+    playerElement.style.bottom=
+        (110+player.y)+"px";
+
+
+    enemyElement.style.left=
+        enemy.x+"px";
+
+    enemyElement.style.bottom=
+        (110+enemy.y)+"px";
+
+}
+
+
+/* =========================
+   HUD
+========================= */
+
+function updateHUD(){
+
+    const hpPercent=
+        player.hp/
+        player.maxHp*
+        100;
+
+    const energyPercent=
+        player.energy/
+        player.maxEnergy*
+        100;
+
+
+    document.getElementById("playerName")
+        .textContent=
+        player.name;
+
+
+    document.getElementById("hpFill")
+        .style.width=
+        hpPercent+"%";
+
+
+    document.getElementById("energyFill")
+        .style.width=
+        energyPercent+"%";
+
+
+    document.getElementById("hpText")
+        .textContent=
+        Math.ceil(player.hp)+
+        " / "+
+        player.maxHp;
+
+
+    document.getElementById("energyText")
+        .textContent=
+        Math.floor(player.energy)+
+        " / 100";
+
+
+    document.getElementById("atkText")
+        .textContent=
+        player.atk;
+
+
+    document.getElementById("defenseText")
+        .textContent=
+        player.defense+"%";
+
+}
+
+
+/* =========================
+   HUD INIMIGO
+========================= */
+
+function updateEnemyHUD(){
+
+    const percentage=
+        enemy.hp/
+        enemy.maxHp*
+        100;
+
+    document.getElementById("enemyHpFill")
+        .style.width=
+        percentage+"%";
+
+    document.getElementById("enemyHpText")
+        .textContent=
+        Math.ceil(enemy.hp)+
+        " / "+
+        enemy.maxHp;
+
+    document.getElementById("enemyAtkText")
+        .textContent=
+        enemy.atk;
+
+}
+
+
+/* =========================
+   EFEITO SOCO
+========================= */
+
+function createPunch(){
+
+    const effect=
+        document.createElement("div");
+
+    effect.className="punchEffect";
+
+    effect.style.left=
+        (player.x+
+        player.facing*45)+"px";
+
+    effect.style.bottom=
+        (145+player.y)+"px";
+
+    if(player.facing<0){
+        effect.style.transform=
+            "scaleX(-1)";
+    }
+
+    document
+     
