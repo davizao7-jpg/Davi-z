@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Davi Z</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    touch-action: none;
+    user-select: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #071b45;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* =========================
+   TELAS
+========================= */
+
+.screen {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    overflow: hidden;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* =========================
+   MENU
+========================= */
+
+#menuScreen {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.9) 0 35px, transparent 36px),
+        radial-gradient(circle at 75% 25%, rgba(255,255,255,.85) 0 45px, transparent 46px),
+        linear-gradient(#2297ed 0%, #55b8f4 55%, #d8f5ff 100%);
+}
+
+.cloud {
+    position: absolute;
+    width: 180px;
+    height: 55px;
+    background: rgba(255,255,255,.85);
+    border-radius: 50px;
+    filter: blur(1px);
+    opacity: .85;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 75px;
+    height: 75px;
+    left: 25px;
+    bottom: 10px;
+}
+
+.cloud::after {
+    width: 95px;
+    height: 95px;
+    right: 25px;
+    bottom: 5px;
+}
+
+.cloud.c1 {
+    top: 15%;
+    left: -30px;
+}
+
+.cloud.c2 {
+    top: 65%;
+    right: -40px;
+    transform: scale(.8);
+}
+
+.title {
+    font-size: clamp(50px, 12vw, 100px);
+    font-weight: 900;
+    color: white;
+    text-shadow:
+        0 6px 0 #1765a6,
+        0 10px 20px rgba(0,0,0,.35);
+    z-index: 2;
+    margin-bottom: 45px;
+}
+
+.menuButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: min(420px, 75vw);
+    z-index: 2;
+}
+
+.menuButton {
+    border: 4px solid white;
+    border-radius: 18px;
+    padding: 17px;
+    font-size: 25px;
+    font-weight: 900;
+    color: white;
+    background: linear-gradient(#1689e7, #0756ae);
+    box-shadow: 0 7px 0 #063d7c, 0 12px 25px rgba(0,0,0,.3);
+}
+
+.menuButton:active {
+    transform: translateY(5px);
+    box-shadow: 0 2px 0 #063d7c;
+}
+
+/* =========================
+   SELEÇÃO
+========================= */
+
+#selectScreen {
+    background: linear-gradient(135deg, #06152f, #0b4c8c);
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+}
+
+.selectTitle {
+    color: white;
+    font-size: clamp(28px, 5vw, 55px);
+    margin-bottom: 25px;
+}
+
+.characterList {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.characterCard {
+    flex: 1;
+    min-width: 0;
+    max-width: 280px;
+    border: 3px solid #6ed4ff;
+    border-radius: 18px;
+    padding: 18px;
+    background: rgba(0,0,0,.4);
+    color: white;
+    text-align: center;
+    transition: .15s;
+}
+
+.characterCard:active {
+    transform: scale(.96);
+}
+
+.characterVisual {
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Personagens simples provisórios */
+.cardFighter {
+    width: 70px;
+    height: 130px;
+    border-radius: 35px 35px 15px 15px;
+    position: relative;
+}
+
+.cardFighter::before {
+    content: "";
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    top: -35px;
+    left: 2px;
+    background: inherit;
+}
+
+.gokuVisual {
+    background: #f28a21;
+    box-shadow: 0 0 25px #ffae42;
+}
+
+.piccoloVisual {
+    background: #27b64a;
+    box-shadow: 0 0 25px #52ff73;
+}
+
+.vegetaVisual {
+    background: #2865d8;
+    box-shadow: 0 0 25px #4d8dff;
+}
+
+.characterCard h2 {
+    font-size: 27px;
+    margin-bottom: 12px;
+}
+
+.stats {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #d9f5ff;
+}
+
+.selectButton {
+    margin-top: 12px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #1db7ff;
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+/* =========================
+   JOGO
+========================= */
+
+#gameScreen {
+    background: #76c7f5;
+    position: fixed;
+}
+
+#gameCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(to bottom,
+            #56b9f4 0%,
+            #b9eaff 68%,
+            #4a9c43 69%,
+            #27702b 100%);
+}
+
+/* =========================
+   HUD
+========================= */
+
+#hud {
+    position: absolute;
+    top: 15px;
+    left: 18px;
+    color: white;
+    z-index: 10;
+    min-width: 240px;
+    pointer-events: none;
+}
+
+.hudName {
+    font-size: 22px;
+    font-weight: 900;
+    text-shadow: 2px 2px 3px black;
+    margin-bottom: 5px;
+}
+
+.barContainer {
+    width: 250px;
+    height: 19px;
+    border: 2px solid white;
+    background: #111;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,.4);
+}
+
+.bar {
+    height: 100%;
+    width: 100%;
+    transition: width .15s;
+}
+
+.hpBar {
+    background: linear-gradient(#ff5b5b, #c40000);
+}
+
+.energyBar {
+    background: linear-gradient(#54e9ff, #006be6);
+}
+
+.hudText {
+    font-weight: 900;
+    font-size: 16px;
+    text-shadow: 2px 2px 3px black;
+}
+
+.transformations {
+    margin-top: 9px;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    max-width: 420px;
+}
+
+.transformButton,
+.skillButton {
+    border: 2px solid white;
+    border-radius: 8px;
+    background: rgba(0,0,0,.65);
+    color: white;
+    padding: 7px 10px;
+    font-weight: bold;
+}
+
+.transformButton:active,
+.skillButton:active {
+    transform: scale(.92);
+}
+
+#coins {
+    margin-top: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 2px 2px 3px black;
+}
+
+/* =========================
+   CONTROLES
+========================= */
+
+#controls {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 20;
+}
+
+#joystick {
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.25);
+    border: 3px solid rgba(255,255,255,.6);
+    pointer-events: auto;
+}
+
+#stick {
+    position: absolute;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.65);
+    border: 3px solid white;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.actionArea {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    width: 330px;
+    height: 210px;
+    pointer-events: none;
+}
+
+.actionButton {
+    position: absolute;
+    border: 3px solid white;
+    color: white;
+    font-weight: 900;
+    border-radius: 50%;
+    box-shadow: 0 5px 12px rgba(0,0,0,.35);
+    pointer-events: auto;
+}
+
+#attackButton {
+    width: 90px;
+    height: 90px;
+    right: 0;
+    bottom: 35px;
+    background: radial-gradient(circle, #ffb300, #d32f00);
+}
+
+#dashButton {
+    width: 70px;
+    height: 70px;
+    right: 105px;
+    bottom: 0;
+    background: radial-gradient(circle, #9c9cff, #3333b5);
+}
+
+#kiButton {
+    width: 70px;
+    height: 70px;
+    right: 105px;
+    bottom: 105px;
+    background: radial-gradient(circle, #6df4ff, #0058d4);
+}
+
+#jumpButton {
+    width: 65px;
+    height: 65px;
+    right: 205px;
+    bottom: 15px;
+    background: radial-gradient(circle, #baff70, #238000);
+}
+
+#skills {
+    position: absolute;
+    right: 25px;
+    bottom: 245px;
+    display: flex;
+    gap: 7px;
+    pointer-events: auto;
+}
+
+.skillButton {
+    min-width: 75px;
+    min-height: 48px;
+}
+
+#gameMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: clamp(35px, 8vw, 80px);
+    font-weight: 900;
+    text-shadow: 4px 4px 8px black;
+    display: none;
+    z-index: 50;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 800px) {
+    .characterList {
+        gap: 8px;
+    }
+
+    .characterCard {
+        padding: 10px;
+    }
+
+    .characterVisual {
+        height: 120px;
+    }
+
+    .barContainer {
+        width: 190px;
+    }
+
+    #skills {
+        bottom: 220px;
+        right: 10px;
+    }
+
+    .actionArea {
+        right: 10px;
+        bottom: 15px;
+        transform: scale(.8);
+        transform-origin: bottom right;
+    }
+
+    #joystick {
+        left: 15px;
+        bottom: 20px;
+        transform: scale(.85);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     MENU
+========================= -->
+
+<section id="menuScreen" class="screen active">
+
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+
+    <div class="title">DAVI Z</div>
+
+    <div class="menuButtons">
+        <button class="menuButton" onclick="chooseMode('treino')">
+            TREINO
+        </button>
+
+        <button class="menuButton" onclick="chooseMode('infinito')">
+            INFINITO
+        </button>
+
+        <button class="menuButton" onclick="chooseMode('versus')">
+            VERSUS
+        </button>
+    </div>
+
+</section>
+
+<!-- =========================
+     SELEÇÃO
+========================= -->
+
+<section id="selectScreen" class="screen">
+
+    <h1 class="selectTitle">ESCOLHA SEU LUTADOR</h1>
+
+    <div class="characterList">
+
+        <div class="characterCard">
+            <div class="characterVisual">
+                <div class="cardFighter gokuVisual"></div>
+            </div>
+
+            <h2>Goku</h2>
+
+            <div class="stats">
+                HP: 90<br>
+                ATK: 1<br>
+                Energia: 100<br>
+                Defesa: 100%
+            </div>
+
+            <button class="selectButton"
+                    onclick="selectCharacter('Goku')">
+                ESCOLHER
+            </button>
+        </div>
+
+        <div class="characterCard">
+            <div class="characterVisual">
+                <div class="cardFighter piccoloVisual"></div>
+            </div>
+
+            <h2>Piccolo</h2>
+
+            <div class="stats">
+                HP: 110<br>
+                ATK: 1<br>
+                Energia: 100<br>
+                Defesa: 100%
+            </div>
+
+            <button class="selectButton"
+                    onclick="selectCharacter('Piccolo')">
+                ESCOLHER
+            </button>
+        </div>
+
+        <div class="characterCard">
+            <div class="characterVisual">
+                <div class="cardFighter vegetaVisual"></div>
+            </div>
+
+            <h2>Vegeta</h2>
+
+            <div class="stats">
+                HP: 85<br>
+                ATK: 1<br>
+                Energia: 100<br>
+                Defesa: 100%
+            </div>
+
+            <button class="selectButton"
+                    onclick="selectCharacter('Vegeta')">
+                ESCOLHER
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     JOGO
+========================= -->
+
+<section id="gameScreen" class="screen">
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="hud">
+
+        <div class="hudName" id="hudName">
+            Goku
+        </div>
+
+        <div class="barContainer">
+            <div id="hpBar" class="bar hpBar"></div>
+        </div>
+
+        <div class="hudText" id="hpText">
+            HP: 90 / 90
+        </div>
+
+        <div class="barContainer">
+            <div id="energyBar" class="bar energyBar"></div>
+        </div>
+
+        <div class="hudText" id="energyText">
+            ENERGIA: 100 / 100
+        </div>
+
+        <div class="hudText" id="attackText">
+            ATK: 1
+        </div>
+
+        <div class="hudText" id="defenseText">
+            DEFESA: 100%
+        </div>
+
+        <div id="coins">
+            💰 Moedas: ∞
+        </div>
+
+        <div class="transformations">
+
+            <button class="transformButton">
+                SSJ
+            </button>
+
+            <button class="transformButton">
+                SSJ GOD
+            </button>
+
+            <button class="transformButton">
+                SSJ BLUE
+            </button>
+
+            <button class="transformButton">
+                INSTINTO
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="skills">
+
+        <button class="skillButton">
+            SKILL 1
+        </button>
+
+        <button class="skillButton">
+            SKILL 2
+        </button>
+
+        <button class="skillButton">
+            SKILL 3
+        </button>
+
+    </div>
+
+    <div id="controls">
+
+        <div id="joystick">
+            <div id="stick"></div>
+        </div>
+
+        <div class="actionArea">
+
+            <button id="attackButton"
+                    class="actionButton">
+                SOCO
+            </button>
+
+            <button id="dashButton"
+                    class="actionButton">
+                DASH
+            </button>
+
+            <button id="kiButton"
+                    class="actionButton">
+                KI
+            </button>
+
+            <button id="jumpButton"
+                    class="actionButton">
+                PULO
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="gameMessage"></div>
+
+</section>
+
+<script>
+
+/* ==========================================================
+   DAVI Z — SISTEMA BASE
+========================================================== */
+
+/* -------------------------
+   ELEMENTOS
+------------------------- */
+
+const menuScreen = document.getElementById("menuScreen");
+const selectScreen = document.getElementById("selectScreen");
+const gameScreen = document.getElementById("gameScreen");
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const hudName = document.getElementById("hudName");
+const hpBar = document.getElementById("hpBar");
+const energyBar = document.getElementById("energyBar");
+
+const hpText = document.getElementById("hpText");
+const energyText = document.getElementById("energyText");
+const attackText = document.getElementById("attackText");
+const defenseText = document.getElementById("defenseText");
+
+const gameMessage = document.getElementById("gameMessage");
+
+let currentMode = "treino";
+let selectedCharacter = "Goku";
+
+let animationFrame;
+
+/* -------------------------
+   TAMANHO DO CANVAS
+------------------------- */
+
+function resizeCanvas() {
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+}
+
+window.addEventListener("resize", resizeCanvas);
+
+resizeCanvas();
+
+/* ==========================================================
+   DADOS BÁSICOS DOS LUTADORES
+========================================================== */
+
+const characters = {
+
+    Goku: {
+        name: "Goku",
+        maxHp: 90,
+        attack: 1,
+        maxEnergy: 100,
+        defense: 100,
+        color: "#f28a21"
+    },
+
+    Piccolo: {
+        name: "Piccolo",
+        maxHp: 110,
+        attack: 1,
+        maxEnergy: 100,
+        defense: 100,
+        color: "#27b64a"
+    },
+
+    Vegeta: {
+        name: "Vegeta",
+        maxHp: 85,
+        attack: 1,
+        maxEnergy: 100,
+        defense: 100,
+        color: "#2865d8"
+    }
+
+};
+
+/* ==========================================================
+   ESTADO DO JOGADOR
+========================================================== */
+
+let player = null;
+
+function createPlayer(name) {
+
+    const data = characters[name];
+
+    return {
+
+        name: data.name,
+
+        x: canvas.width / 2,
+        y: canvas.height - 180,
+
+        width: 50,
+        height: 95,
+
+        maxHp: data.maxHp,
+        hp: data.maxHp,
+
+        attack: data.attack,
+
+        maxEnergy: data.maxEnergy,
+        energy: data.maxEnergy,
+
+        baseDefense: data.defense,
+        defense: data.defense,
+
+        color: data.color,
+
+        speed: 4,
+
+        jumpPower: 11,
+        velocityY: 0,
+
+        grounded: true,
+
+        facing: 1,
+
+        state: "idle",
+
+        stateTimer: 0,
+
+        attackTimer: 0,
+
+        dashTimer: 0,
+
+        invulnerable: false,
+
+        coins: Infinity
+
+    };
+
+}
+
+/* ==========================================================
+   MODO
+========================================================== */
+
+function chooseMode(mode) {
+
+    currentMode = mode;
+
+    menuScreen.classList.remove("active");
+    selectScreen.classList.add("active");
+
+}
+
+/* ==========================================================
+   SELEÇÃO
+========================================================== */
+
+function selectCharacter(name) {
+
+    selectedCharacter = name;
+
+    selectScreen.classList.remove("active");
+    gameScreen.classList.add("active");
+
+    player = createPlayer(name);
+
+    startGame();
+
+}
+
+/* ==========================================================
+   DEFESA BASEADA NA ENERGIA
+========================================================== */
+
+function updateDefense() {
+
+    const percentage =
+        player.energy / player.maxEnergy;
+
+    if (percentage < 0.30) {
+
+        player.defense = 0;
+
+    }
+
+    else if (percentage < 0.50) {
+
+        player.defense =
+            player.baseDefense * 0.60;
+
+    }
+
+    else if (percentage < 0.70) {
+
+        player.defense =
+            player.baseDefense * 0.80;
+
+    }
+
+    else {
+
+        player.defense =
+            player.baseDefense;
+
+    }
+
+}
+
+/* ==========================================================
+   GASTAR ENERGIA
+========================================================== */
+
+function spendEnergy(amount) {
+
+    if (player.energy < amount) {
+
+        return false;
+
+    }
+
+    player.energy -= amount;
+
+    updateDefense();
+
+    return true;
+
+}
+
+/* ==========================================================
+   ATAQUE BÁSICO
+========================================================== */
+
+function basicAttack() {
+
+    if (!player) return;
+
+    if (!spendEnergy(1)) return;
+
+    player.state = "attack";
+    player.attackTimer = 15;
+
+}
+
+/* ==========================================================
+   ATAQUE DE KI
+========================================================== */
+
+function kiAttack() {
+
+    if (!player) return;
+
+    if (!spendEnergy(2)) return;
+
+    player.state = "ki";
+
+    player.attackTimer = 25;
+
+}
+
+/* ==========================================================
+   DASH
+========================================================== */
+
+function dash() {
+
+    if (!player) return;
+
+    if (!spendEnergy(2)) return;
+
+    player.state = "dash";
+
+    player.dashTimer = 12;
+
+    player.invulnerable = true;
+
+    player.x += player.facing * 90;
+
+}
+
+/* ==========================================================
+   PULO
+========================================================== */
+
+function jump() {
+
+    if (!player) return;
+
+    if (!player.grounded) return;
+
+    player.grounded = false;
+
+    player.velocityY =
+        -player.jumpPower;
+
+    player.state = "jump";
+
+}
+
+/* ==========================================================
+   MOVIMENTO
+========================================================== */
+
+const joystick = {
+    active: false,
+    x: 0,
+    y: 0
+};
+
+let keys = {};
+
+window.addEventListener("keydown", e => {
+
+    keys[e.key.toLowerCase()] = true;
+
+    if (e.key === " ") {
+
+        jump();
+
+    }
+
+    if (e.key.toLowerCase() === "j") {
+
+        basicAttack();
+
+    }
+
+    if (e.key.toLowerCase() === "k") {
+
+        kiAttack();
+
+    }
+
+    if (e.key.toLowerCase() === "l") {
+
+        dash();
+
+    }
+
+});
+
+window.addEventListener("keyup", e => {
+
+    keys[e.key.toLowerCase()] = false;
+
+});
+
+/* ==========================================================
+   ANALÓGICO TOUCH
+========================================================== */
+
+const joystickElement =
+    document.getElementById("joystick");
+
+const stick =
+    document.getElementById("stick");
+
+function updateJoystick(clientX, clientY) {
+
+    const rect =
+        joystickElement.getBoundingClientRect();
+
+    const centerX =
+        rect.left + rect.width / 2;
+
+    const centerY =
+        re
